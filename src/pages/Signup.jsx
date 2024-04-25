@@ -345,7 +345,7 @@ function SignUp() {
 							</div>
 						</div>
 						<button className="submitBtn" type="submit">
-							{loading?"Loading...":"Register Now"}
+							{loading?<Loader />:"Register Now"}
 						</button>
 						<p className="account">
 							Already have an Account? <span onClick={() => navigate("/")}>Log In</span>
