@@ -46,10 +46,6 @@ function SignIn() {
 		}
 	}, [user]);
 
-	if (loading) {
-		return <Loader />;
-	}
-
 	return (
 		<div className="signin">
 			{/* {userLoggedIn && (<Navigate to="/dashboard" replace={true} />)} */}
