@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { AdminSidebar, Bar } from "../components";
+import emailjs from "emailjs-com";
 import { TbHandClick } from "react-icons/tb";
 import { AiFillLike } from "react-icons/ai";
 import { FaPercentage } from "react-icons/fa";
@@ -39,7 +40,29 @@ const Refer = () => {
 	};
 	const sendEmail = async (e) => {
 		e.preventDefault();
-		dispatch(sendMail(email));
+		emailjs
+			.send(
+				"gbt",
+				"template_03je64k",
+				{
+					name_from: user.name,
+					referralCode: user.referralCode,
+					to_email: email,
+					from_name: user.firstName + user.lastName,
+					from_mail: user.email,
+				},
+				"1DqRXIf7r7ATgeDMQ"
+			)
+			.then(
+				(result) => {
+					// alert("success");
+					console.log(result.text);
+				},
+				(error) => {
+					console.log(error.text);
+					// alert("failure");
+				}
+			);
 	};
 
 	useEffect(() => {
@@ -94,7 +117,7 @@ const Refer = () => {
 							<input type="text" value={user?.referralCode || "https://www.gbt.com/refer/123456"} />
 							<button onClick={copyToClipboard}>Copy</button>
 						</div>
-						<div>
+						{/* <div>
 							<h4>Send To</h4>
 							<div>
 								<div>
@@ -104,7 +127,7 @@ const Refer = () => {
 										<p>Ralph Edwards</p>
 									</div>
 								</div>
-								<Link to="/send">Send</Link>
+								<div>Send</div>
 							</div>
 							<div>
 								<div>
@@ -114,9 +137,9 @@ const Refer = () => {
 										<p>Ralph Edwards</p>
 									</div>
 								</div>
-								<Link to="/send">Send</Link>
+								<div>Send</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</section>
 				<section className="TractContainer">

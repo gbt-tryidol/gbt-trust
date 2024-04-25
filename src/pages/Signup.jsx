@@ -3,7 +3,7 @@ import signupImg from "../assets/signup.png";
 import { useEffect, useState } from "react";
 import topCircle from "../assets/register-top.png";
 import bottomCircle from "../assets/register-bottom.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Files from "react-files";
 import logo from "../assets/GBT.png";
 import Select, { components } from "react-select";
@@ -17,6 +17,9 @@ import { FaCrosshairs } from "react-icons/fa";
 function SignUp() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	const code = searchParams.get("code");
 
 	const [aadharFileName, setAadharFileName] = useState("");
 	const [panFileName, setPanFileName] = useState("");
@@ -162,6 +165,15 @@ function SignUp() {
 		setPanFileName(files[0].name);
 		setPan(files[0]);
 	};
+
+	useEffect(() => {
+		if (code) {
+			setSignupDetails({
+				...signupDetails,
+				referralCode: code,
+			});
+		}
+	}, [code]);
 
 	useEffect(() => {
 		if (message) {
