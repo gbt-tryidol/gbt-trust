@@ -126,7 +126,7 @@ export const TableFooter = ({ children, footerClass = "billTotal" }) => {
 // !-- Dashboard Row
 export const DashboardRow = ({ rowdata, className = "tableContents" }) => {
 	return (
-		<Link to={`/trip/${rowdata._id}`} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={data}>{data}</h3>;
 			})}
@@ -140,8 +140,7 @@ export const DashboardRow = ({ rowdata, className = "tableContents" }) => {
 					{rowdata.status}
 				</button>
 			)}
-			
-		</Link>
+		</div>
 	);
 };
 
@@ -312,8 +311,5 @@ export const RowDefault = ({ rowdata, className = "tableContents" }) => {
 };
 
 export default function TableHOC() {
-  return (
-	<div>TableHOC</div>
-  )
+	return <div>TableHOC</div>;
 }
-
