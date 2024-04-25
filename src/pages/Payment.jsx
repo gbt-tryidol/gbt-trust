@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import useRazorpay from "react-razorpay";
+import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -74,6 +75,16 @@ const Payment = () => {
 							// console.log(res);
 							toast.success("payment done");
 							dispatch(addReferral(referralCode));
+							emailjs.send("gbt", "template_vcm5glx", { email_to: user.email, name_to: user.name }, "1DqRXIf7r7ATgeDMQ").then(
+								(result) => {
+									// alert("success");
+									console.log(result.text);
+								},
+								(error) => {
+									console.log(error.text);
+									// alert("failure");
+								}
+							);
 							navigate("/dashboard");
 						});
 					// Display a success message to the user
