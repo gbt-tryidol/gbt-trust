@@ -93,6 +93,7 @@ function Kyc() {
 					aadhar: user?.aadharCard,
 					id: user._id,
 					verified: user.verified,
+					status: user?.plan,
 				};
 			});
 
@@ -101,7 +102,7 @@ function Kyc() {
 			// Set the state with filtered users
 			setTodaysJoining(verifiedUserData);
 		}
-	}, [users]);
+	}, [users, loading]);
 
 	useEffect(() => {
 		if (message) {
@@ -154,10 +155,17 @@ function Kyc() {
 							{todaysJoining.map((user, idx) => (
 								<div key={idx}>
 									<div className="content">
-										<div className="fees">
-											<h1>₹</h1>
-											<p>Registration Fees : 580.00 Rs</p>
-										</div>
+										{user.status === "premium" ? (
+											<div className="fees">
+												<h1>₹</h1>
+												<p>Registration Fees : 580.00 Rs</p>
+											</div>
+										) : (
+											<div className="fees red">
+												<h1>₹ 580.00</h1>
+												<p>Payment not done yet</p>
+											</div>
+										)}
 
 										<div className="photo">
 											<p>Photo Identification</p>
