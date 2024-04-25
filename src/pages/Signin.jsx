@@ -67,7 +67,7 @@ function SignIn() {
 							<p>Forget Password?</p>
 						</div>
 						<button onClick={loginHandler} className="submitBtn" type="submit">
-							Log In
+							{loading?"Loading...":"Log In"}
 						</button>
 						<p className="account">
 							Don&apos;t have an Account?{" "}
