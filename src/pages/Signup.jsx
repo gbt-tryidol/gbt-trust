@@ -190,9 +190,7 @@ function SignUp() {
 		}
 	}, [isAuthenticated]);
 
-	if (loading) {
-		return <Loader />;
-	}
+	
 
 	return (
 		<div className="signup">
