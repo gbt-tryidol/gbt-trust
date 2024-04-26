@@ -14,7 +14,7 @@ const Payment = () => {
 	const [Razorpay] = useRazorpay();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { user, referralCode } = useSelector((state) => state.user);
+	const { user } = useSelector((state) => state.user);
 
 	const [plan, setPlan] = useState("personal");
 
@@ -78,7 +78,7 @@ const Payment = () => {
 						.then((res) => {
 							// console.log(res);
 							toast.success("payment done");
-							dispatch(addReferral(referralCode));
+							dispatch(addReferral(user?.track?.code));
 							emailjs.send("gbt", "template_vcm5glx", { email_to: user.email, name_to: user.name }, "1DqRXIf7r7ATgeDMQ").then(
 								(result) => {
 									// alert("success");
