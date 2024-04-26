@@ -190,9 +190,7 @@ function SignUp() {
 		}
 	}, [isAuthenticated]);
 
-	if (loading) {
-		return <Loader />;
-	}
+	
 
 	return (
 		<div className="signup">
@@ -347,7 +345,7 @@ function SignUp() {
 							</div>
 						</div>
 						<button className="submitBtn" type="submit">
-							Register Now
+							{loading?<Loader />:"Register Now"}
 						</button>
 						<p className="account">
 							Already have an Account? <span onClick={() => navigate("/")}>Log In</span>
