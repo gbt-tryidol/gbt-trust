@@ -3,6 +3,7 @@ import Bar from "./Bar";
 import CardSo from "./CardSo";
 import Loader from "./Loader";
 import NodeModal from "./NodeModal";
+import TextLoader from "./TextLoader";
 import { ProfileComponents, BankComponent, ContactComponent, SettingsComponent } from "./ProfileComponents";
 // import Table from "./Table";
 import {
@@ -56,6 +57,7 @@ export {
 	ProgramRow,
 	Program2Row,
 	KYCRow,
+	TextLoader,
 	TableBody,
 	TableFooter,
 	DashboardRow,
