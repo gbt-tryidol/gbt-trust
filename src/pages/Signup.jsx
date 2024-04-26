@@ -10,7 +10,7 @@ import Select, { components } from "react-select";
 import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../redux/actions/index";
-import { Loader } from "../components";
+import { Loader, TextLoader } from "../components";
 import { FaCross } from "react-icons/fa6";
 import { FaCrosshairs } from "react-icons/fa";
 
@@ -190,8 +190,6 @@ function SignUp() {
 		}
 	}, [isAuthenticated]);
 
-	
-
 	return (
 		<div className="signup">
 			<main className="login-main">
@@ -344,8 +342,8 @@ function SignUp() {
 								</p>
 							</div>
 						</div>
-						<button className="submitBtn" type="submit">
-							{loading?<Loader />:"Register Now"}
+						<button className="submitBtn" disabled={loading} type="submit">
+							{loading ? <TextLoader /> : "Register Now"}
 						</button>
 						<p className="account">
 							Already have an Account? <span onClick={() => navigate("/")}>Log In</span>
