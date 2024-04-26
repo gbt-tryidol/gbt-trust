@@ -286,7 +286,7 @@ export const verifyUser = (id, status) => async (dispatch) => {
 
 		dispatch({
 			type: "VERIFY_USER_SUCCESS",
-			payload: "User Verified",
+			payload: data.message,
 		});
 	} catch (error) {
 		console.log(error);

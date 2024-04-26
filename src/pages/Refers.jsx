@@ -74,7 +74,15 @@ const Refer = () => {
 	}, [user]);
 
 	if (user?.verified !== "approved") {
-		return <h1> You need to be verified before enteing a refer page</h1>;
+		return (
+			<div className="admin-container">
+				<AdminSidebar />
+				<main className="refers">
+					<Bar />
+					<h2 style={{ color: "red", fontSize: "1.4rem", textAlign: "center" }}>You are not approved for visiting this page</h2>
+				</main>
+			</div>
+		);
 	}
 
 	return (

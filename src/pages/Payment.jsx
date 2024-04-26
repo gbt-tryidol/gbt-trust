@@ -2,7 +2,7 @@
 import useRazorpay from "react-razorpay";
 import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +21,10 @@ const Payment = () => {
 	useEffect(() => {
 		dispatch(loadUser());
 	}, []);
+
+	if (user?.role === "admin") {
+		<Navigate to="/dashboard" />;
+	}
 
 	const paymentHandler = async () => {
 		const orderData = {
