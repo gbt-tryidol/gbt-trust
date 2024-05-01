@@ -3,10 +3,10 @@ import { AdminSidebar, Bar, Loader, OwnerRow, Table, TableBody, TableContainer, 
 import Select, { components } from "react-select";
 import { LineChart } from "../components/Chart";
 import { IoIosArrowDown } from "react-icons/io";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector, useMemo } from "react-redux";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getTeam } from "../redux/actions";
-import { FixedSizeList as List } from 'react-window';
+
 
 const teamGroupHeaders = ["#", "Name", "Rank", "Total Income", "Address"];
 
@@ -220,18 +220,7 @@ const Profile = () => {
 						<div className="top_performer">
 							<div className="heading">Top Performers</div>
 							<div className="table-performer">
-								<List
-									height={400} // Set the height of the list
-									itemCount={topPerformer.length} // Number of items in the list
-									itemSize={100} // Height of each item in the list
-									width="100%" // Set the width of the list
-								>
-									{({ index, style }) => (
-										<div style={style}>
-											{memoizedPerformers[index]}
-										</div>
-									)}
-								</List>
+								{loading ? <Loader /> : memoizedPerformers}
 							</div>
 						</div>
 						<div className="group_performance">
