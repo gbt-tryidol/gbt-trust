@@ -65,11 +65,7 @@ const TreeComponent = () => {
       setTreeData(tree);
     }
   }, [tree]);
-
   
-
-
-
   if (loading || treeLoading) {
     return <Loader />;
   }
