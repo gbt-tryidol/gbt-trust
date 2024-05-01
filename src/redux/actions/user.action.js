@@ -128,6 +128,8 @@ export const addReferral = (code) => async (dispatch) => {
 			type: "ADD_REFERRAL_REQUEST",
 		});
 
+		alert(code);
+
 		const token = Cookies.get("token"); // Get the token from the cookie
 		// eslint-disable-next-line no-unused-vars
 		const config = {
@@ -135,9 +137,10 @@ export const addReferral = (code) => async (dispatch) => {
 				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
 			},
 		};
+		console.log("hii");
 
 		const { data } = await axios.get(`${URI}/referral/generated-link/:referralCode=${code}`, config);
-
+		console.log(data);
 		const payload = {
 			user: data.data.user,
 			// message: data.message,
@@ -286,7 +289,7 @@ export const verifyUser = (id, status) => async (dispatch) => {
 
 		dispatch({
 			type: "VERIFY_USER_SUCCESS",
-			payload: "User Verified",
+			payload: data.message,
 		});
 	} catch (error) {
 		console.log(error);

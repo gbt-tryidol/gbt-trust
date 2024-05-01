@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import useRazorpay from "react-razorpay";
+import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +14,17 @@ const Payment = () => {
 	const [Razorpay] = useRazorpay();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { user, referralCode } = useSelector((state) => state.user);
+	const { user } = useSelector((state) => state.user);
 
 	const [plan, setPlan] = useState("personal");
 
 	useEffect(() => {
 		dispatch(loadUser());
 	}, []);
+
+	if (user?.role === "admin") {
+		<Navigate to="/dashboard" />;
+	}
 
 	const paymentHandler = async () => {
 		const orderData = {
@@ -73,7 +78,17 @@ const Payment = () => {
 						.then((res) => {
 							// console.log(res);
 							toast.success("payment done");
-							dispatch(addReferral(referralCode));
+							dispatch(addReferral(user?.track?.code));
+							emailjs.send("gbt", "template_vcm5glx", { email_to: user.email, name_to: user.name }, "1DqRXIf7r7ATgeDMQ").then(
+								(result) => {
+									// alert("success");
+									console.log(result.text);
+								},
+								(error) => {
+									console.log(error.text);
+									// alert("failure");
+								}
+							);
 							navigate("/dashboard");
 						});
 					// Display a success message to the user

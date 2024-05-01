@@ -26,6 +26,7 @@ function Kyc() {
 	const [userQuery, setUserQuery] = useState("");
 	const [selectedSortOption] = useState(kycSortOptions[0]); // Default to first sorting option
 	const [todaysJoining, setTodaysJoining] = useState([]);
+	const [selectedUser, setSelectedUser] = useState();
 	const dispatch = useDispatch();
 
 	// Filter function to filter usersdata based on search query
@@ -54,20 +55,31 @@ function Kyc() {
 		}
 	};
 
+	const onSelectUser = (user) => {
+		if (user.user.verified === "rejected") {
+			toast.info("user is rejected");
+			return;
+		}
+		setSelectedUser(user.user);
+	};
+
 	useEffect(() => {
 		if (users && users.length > 0) {
 			const processedUsersData = users
 				.filter((user) => user.role === "user")
 				.map((user) => ({
 					data: [`ID-${user.userId}`, user.firstName, user.lastName, user.contact, user.email],
-					status: user.verified === "approved" ? "Approved" : "Pending",
-					_id: user.userId, // Assuming user ID can be used as _id
+					status: user.verified === "approved" ? "Approved" : user.verified === "pending" ? "Pending" : "Rejected",
+					_id: user.userId, // Assuming user ID can be used as _id,
+					user: user,
 				}))
 				.reverse();
 
-			setUsersdata(processedUsersData); // Update state with the processed user data
+			const remianingUser = processedUsersData.filter((user) => user.status !== "Approved");
+
+			setUsersdata(remianingUser); // Update state with the processed user data
 		}
-	}, [users]);
+	}, [users, loading, userLoading]);
 
 	useEffect(() => {
 		if (users) {
@@ -93,6 +105,7 @@ function Kyc() {
 					aadhar: user?.aadharCard,
 					id: user._id,
 					verified: user.verified,
+					status: user?.plan,
 				};
 			});
 
@@ -101,11 +114,12 @@ function Kyc() {
 			// Set the state with filtered users
 			setTodaysJoining(verifiedUserData);
 		}
-	}, [users]);
+	}, [users, loading, userLoading]);
 
 	useEffect(() => {
 		if (message) {
 			toast.success(message);
+			setSelectedUser(null);
 			dispatch({ type: "CLEAR_MESSAGES" });
 		}
 		if (error) {
@@ -128,6 +142,58 @@ function Kyc() {
 				<Bar heading="KYC" />
 				<section className="kyc">
 					{/* Your existing JSX code */}
+					{selectedUser && (
+						<section className="kycregistration">
+							<div className="heading">
+								<p>Registration Documents</p>
+								<p style={{ fontSize: "1rem", fontFamily: "poppins", fontWeight: 300 }}>Phone:- +91-{selectedUser?.contact}</p>
+								<p style={{ fontSize: "1rem", fontFamily: "poppins", fontWeight: 300 }}>Email:- {selectedUser?.email}</p>
+							</div>
+
+							<div className="body">
+								<div className="content">
+									{selectedUser.status === "premium" ? (
+										<div className="fees">
+											<h1>₹</h1>
+											<p>Registration Fees : 580.00 Rs</p>
+										</div>
+									) : (
+										<div className="fees" style={{ color: "red" }}>
+											<h1>₹ 580.00</h1>
+											<p>Payment not done yet</p>
+										</div>
+									)}
+
+									<div className="photo">
+										<p>Photo Identification</p>
+										<img className="kyc-image" src={selectedUser?.avatar} alt={selectedUser?.firstName} />
+									</div>
+
+									<div className="aadhar">
+										<p>Aadhar Card</p>
+										<img className="kyc-image" src={selectedUser?.aadharCard} alt={selectedUser?.firstName} />
+									</div>
+								</div>
+
+								<div className="footer">
+									<button
+										onClick={() => {
+											userVerifyHandler(selectedUser._id, false);
+										}}
+									>
+										Decline
+									</button>
+									<button
+										onClick={() => {
+											userVerifyHandler(selectedUser._id, true);
+										}}
+									>
+										Accept
+									</button>
+								</div>
+							</div>
+						</section>
+					)}
 					<TableContainer className="kycTable">
 						<TableHeading>
 							<p>Registration List</p>
@@ -141,56 +207,9 @@ function Kyc() {
 								}}
 								headers={kycHeaders}
 							/>
-							<TableBody TableRow={KYCRow} data={sortedData} /> {/* Render sorted data */}
+							<TableBody onClick={onSelectUser} TableRow={KYCRow} data={sortedData} /> {/* Render sorted data */}
 						</Table>
 					</TableContainer>
-					<section className="kycregistration">
-						<div className="heading">
-							<p>Registration Documents</p>
-							<input type="text" placeholder="Search..." value={userQuery} onChange={(e) => setUserQuery(e.target.value)} />
-						</div>
-
-						<div className="body">
-							{todaysJoining.map((user, idx) => (
-								<div key={idx}>
-									<div className="content">
-										<div className="fees">
-											<h1>₹</h1>
-											<p>Registration Fees : 580.00 Rs</p>
-										</div>
-
-										<div className="photo">
-											<p>Photo Identification</p>
-											<img className="kyc-image" src={user?.avatar} alt={user?.firstName} />
-										</div>
-
-										<div className="aadhar">
-											<p>Aadhar Card</p>
-											<img className="kyc-image" src={user?.aadhar} alt={user?.firstName} />
-										</div>
-									</div>
-
-									<div className="footer">
-										<button
-											onClick={() => {
-												console.log(user);
-												userVerifyHandler(user._id, false);
-											}}
-										>
-											Decline
-										</button>
-										<button
-											onClick={() => {
-												userVerifyHandler(user.id, true);
-											}}
-										>
-											Accept
-										</button>
-									</div>
-								</div>
-							))}
-						</div>
-					</section>
 				</section>
 			</main>
 		</div>

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/GBT.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../redux/actions";
-import { Loader } from "../components";
+import { Loader, TextLoader } from "../components";
 
 function SignIn() {
 	const dispatch = useDispatch();
@@ -46,10 +46,6 @@ function SignIn() {
 		}
 	}, [user]);
 
-	if (loading) {
-		return <Loader />;
-	}
-
 	return (
 		<div className="signin">
 			{/* {userLoggedIn && (<Navigate to="/dashboard" replace={true} />)} */}
@@ -70,8 +66,8 @@ function SignIn() {
 							</div>
 							<p>Forget Password?</p>
 						</div>
-						<button onClick={loginHandler} className="submitBtn" type="submit">
-							Log In
+						<button onClick={loginHandler} disabled={loading} className="submitBtn" type="submit">
+							{loading ? <TextLoader /> : "Log In"}
 						</button>
 						<p className="account">
 							Don&apos;t have an Account?{" "}

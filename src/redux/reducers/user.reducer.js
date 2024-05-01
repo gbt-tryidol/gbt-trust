@@ -17,7 +17,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 		})
 		.addCase("GET_LOGIN_FAILURE", (state, action) => {
 			state.loading = false;
-			state.error = action.payload;
+			state.error = "Invalid Credentials";
 			state.isAuthenticated = false;
 		})
 		.addCase("UPDATE_PROFILE_REQUEST", (state) => {

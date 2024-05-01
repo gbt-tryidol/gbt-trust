@@ -92,9 +92,9 @@ export const Program2Row = ({ rowdata, className = "tableContents" }) => {
 };
 
 // kyc Row
-export const KYCRow = ({ rowdata, className = "tableContents" }) => {
+export const KYCRow = ({ onClick, rowdata, className = "tableContents" }) => {
 	return (
-		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
+		<div onClick={() => onClick(rowdata)} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={rowdata._id}>{data}</h3>;
 			})}
@@ -104,14 +104,14 @@ export const KYCRow = ({ rowdata, className = "tableContents" }) => {
 };
 
 // !-- Table Body
-export const TableBody = ({ data, children, TableRow, isSingleData = false }) => {
+export const TableBody = ({ data, children, TableRow, isSingleData = false, onClick }) => {
 	return (
 		<div className="tableContentBody">
 			{!isSingleData &&
 				data?.map((row) => {
-					return <TableRow key={row._id} rowdata={row} />;
+					return <TableRow onClick={onClick} key={row._id} rowdata={row} />;
 				})}
-			{isSingleData && <TableRow rowdata={data} />}
+			{isSingleData && <TableRow onClick={onClick} rowdata={data} />}
 			{children}
 		</div>
 	);
@@ -126,7 +126,7 @@ export const TableFooter = ({ children, footerClass = "billTotal" }) => {
 // !-- Dashboard Row
 export const DashboardRow = ({ rowdata, className = "tableContents" }) => {
 	return (
-		<Link to={`/trip/${rowdata._id}`} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={data}>{data}</h3>;
 			})}
@@ -140,8 +140,7 @@ export const DashboardRow = ({ rowdata, className = "tableContents" }) => {
 					{rowdata.status}
 				</button>
 			)}
-			
-		</Link>
+		</div>
 	);
 };
 
@@ -312,8 +311,5 @@ export const RowDefault = ({ rowdata, className = "tableContents" }) => {
 };
 
 export default function TableHOC() {
-  return (
-	<div>TableHOC</div>
-  )
+	return <div>TableHOC</div>;
 }
-

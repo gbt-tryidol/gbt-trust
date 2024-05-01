@@ -30,7 +30,7 @@
 	}
 	> .login-main {
 		width: 95%;
-		@include flex(row,center,center,0);
+		@include flex(row, center, center, 0);
 		> section {
 			box-shadow: 0 0 3px 1px #e4e4e4;
 			@include flex(row, unset, unset, 0);
@@ -64,7 +64,7 @@
 					color: $textColor;
 				}
 				@include flex(column, flex-start, flex-start, 0.5rem);
-				>.input-container {
+				> .input-container {
 					width: 100%;
 					margin: 0 1rem;
 					display: flex;
@@ -72,7 +72,7 @@
 					align-items: center;
 					justify-content: space-between;
 					row-gap: 0.5rem;
-					.css-b62m3t-container{
+					.css-b62m3t-container {
 						width: 49%;
 					}
 					> input {
@@ -89,11 +89,11 @@
 							opacity: 0.4;
 						}
 
-						&:first-child{
+						&:first-child {
 							width: 100%;
 						}
 
-						&:last-child{
+						&:last-child {
 							width: 100%;
 						}
 					}
@@ -113,19 +113,19 @@
 						filter: brightness(0.9);
 					}
 				}
-				> .action-container{
+				> .action-container {
 					width: 100%;
-					@include flex(row, space-between, center,3		rem);
-					> .remember-me{
-						@include flex(row, flex-start, center,0.5rem);
+					@include flex(row, space-between, center, 3 rem);
+					> .remember-me {
+						@include flex(row, flex-start, center, 0.5rem);
 					}
-					> p{
+					> p {
 						color: $secondaryColor;
 						font-weight: 600;
 					}
 				}
 				> .account {
-					@include flex(row, center, center,0.5rem);
+					@include flex(row, center, center, 0.5rem);
 					color: #000;
 					> span {
 						color: $secondaryColor;
@@ -134,19 +134,32 @@
 					}
 				}
 
-				> .files{
+				> .files {
 					@include flex(row, center, center, 2rem);
 					width: 100%;
 
-					.single-file{
+					.single-file {
 						@include flex(column, center, center, -0.1rem);
-						> label{
+						> label {
 							color: $secondaryColor;
 						}
-						.file{
+						> p {
+							width: 100%;
+							padding: 0 0.3rem;
+							font-size: 0.86rem;
+							&:hover {
+								// background-color: red;
+							}
+							@include flex(row, space-between, center, 0);
+							> svg {
+								font-size: 2rem;
+								cursor: pointer;
+							}
+						}
+						.file {
 							border: 2px dashed $secondaryColor;
 							padding: 0.5rem 2rem;
-							.files-dropzone{
+							.files-dropzone {
 								padding: 0.7rem 2.5rem;
 								width: fit-content;
 								background-color: $tertiaryColor;
@@ -193,7 +206,7 @@
 	}
 	> .login-main {
 		width: 95%;
-		@include flex(row,center,center,0);
+		@include flex(row, center, center, 0);
 		> section {
 			box-shadow: 0 0 3px 1px #e4e4e4;
 			@include flex(row, unset, unset, 0);
@@ -227,7 +240,7 @@
 					color: $textColor;
 				}
 				@include flex(column, flex-start, flex-start, 0.5rem);
-				>.input-container {
+				> .input-container {
 					width: 100%;
 					margin: 0 1rem;
 					display: flex;
@@ -235,7 +248,7 @@
 					align-items: center;
 					justify-content: space-between;
 					row-gap: 0.5rem;
-					.css-b62m3t-container{
+					.css-b62m3t-container {
 						width: 49%;
 					}
 					> input {
@@ -252,11 +265,11 @@
 							opacity: 0.4;
 						}
 
-						&:first-child{
+						&:first-child {
 							width: 100%;
 						}
 
-						&:last-child{
+						&:last-child {
 							width: 100%;
 						}
 					}
@@ -276,19 +289,19 @@
 						filter: brightness(0.9);
 					}
 				}
-				> .action-container{
+				> .action-container {
 					width: 100%;
-					@include flex(row, space-between, center,3		rem);
-					> .remember-me{
-						@include flex(row, flex-start, center,0.5rem);
+					@include flex(row, space-between, center, 3 rem);
+					> .remember-me {
+						@include flex(row, flex-start, center, 0.5rem);
 					}
-					> p{
+					> p {
 						color: $secondaryColor;
 						font-weight: 600;
 					}
 				}
 				> .account {
-					@include flex(row, center, center,0.5rem);
+					@include flex(row, center, center, 0.5rem);
 					color: #000;
 					> span {
 						color: $secondaryColor;
@@ -297,19 +310,19 @@
 					}
 				}
 
-				> .files{
+				> .files {
 					@include flex(row, center, center, 2rem);
 					width: 100%;
 
-					.single-file{
+					.single-file {
 						@include flex(column, center, center, -0.1rem);
-						> label{
+						> label {
 							color: $secondaryColor;
 						}
-						.file{
+						.file {
 							border: 2px dashed $secondaryColor;
 							padding: 0.5rem 2rem;
-							.files-dropzone{
+							.files-dropzone {
 								padding: 0.7rem 2.5rem;
 								width: fit-content;
 								background-color: $tertiaryColor;
@@ -323,30 +336,30 @@
 	}
 }
 
-.right-container{
-	position: relative;	
-	@include flex(row, center, center,0);
-	background: linear-gradient(to bottom, #CD8A81 0%, #7E7083 100%);
+.right-container {
+	position: relative;
+	@include flex(row, center, center, 0);
+	background: linear-gradient(to bottom, #cd8a81 0%, #7e7083 100%);
 
-	> .top-circle{
+	> .top-circle {
 		position: absolute;
 		top: 0;
 		left: 0;
-		opacity: .5;
+		opacity: 0.5;
 		width: 30%;
 	}
 
-	> .bottom-circle{
+	> .bottom-circle {
 		position: absolute;
 		bottom: 0;
-		right: 0; 
+		right: 0;
 		width: 35%;
 		z-index: 0;
-		opacity: .4;
+		opacity: 0.4;
 	}
 }
 
-.GBT-logo{
+.GBT-logo {
 	width: 20%;
 	// background-color: red;
-}	
+}

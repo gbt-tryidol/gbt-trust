@@ -1,21 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import signupImg from "../assets/signup.png";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import topCircle from "../assets/register-top.png";
 import bottomCircle from "../assets/register-bottom.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Files from "react-files";
 import logo from "../assets/GBT.png";
 import Select, { components } from "react-select";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../redux/actions/index";
-import { Loader } from "../components";
+import { Loader, TextLoader } from "../components";
+import { FaCross } from "react-icons/fa6";
+import { FaCrosshairs } from "react-icons/fa";
 
 function SignUp() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	const code = searchParams.get("code");
+
+	const [aadharFileName, setAadharFileName] = useState("");
+	const [panFileName, setPanFileName] = useState("");
+	const [avatarFileName, setAvatarFileName] = useState("");
 
 	const { loading } = useSelector((state) => state.user);
 
@@ -119,38 +127,6 @@ function SignUp() {
 		setSignupDetails({ ...signupDetails, [name]: value });
 	};
 
-	// const handleAdharChange = (files) => {
-	// 	console.log("photo : " + files[0].preview.url);
-	// 	setSignupDetails((curr) => {
-	// 		return {
-	// 			...curr,
-	// 			aadhar: files[0].preview.url,
-	// 		};
-	// 	});
-	// 	toast.success("Aadhar uploaded");
-	// };
-
-	// const handlePanChange = (files) => {
-	// 	console.log("photo : " + files[0].preview.url);
-	// 	setSignupDetails((curr) => {
-	// 		return {
-	// 			...curr,
-	// 			pan: files[0].preview.url,
-	// 		};
-	// 	});
-	// 	toast.success("Pan uploaded");
-	// };
-	// const handlePhotoChange = (files) => {
-	// 	console.log(files[0]);
-	// 	setSignupDetails((curr) => {
-	// 		return {
-	// 			...curr,
-	// 			photo: files[0].preview.url,
-	// 		};
-	// 	});
-	// 	toast.success("Avatar uploaded");
-	// };
-
 	const handleError = (error) => {
 		console.log("error code " + error.code + ": " + error.message);
 	};
@@ -177,6 +153,28 @@ function SignUp() {
 		dispatch(userSignup(formData));
 	};
 
+	const onAvatarChange = (files) => {
+		setAvatarFileName(files[0].name);
+		setPhoto(files[0]);
+	};
+	const onAadharChange = (files) => {
+		setAadharFileName(files[0].name);
+		setAadhar(files[0]);
+	};
+	const onPanChange = (files) => {
+		setPanFileName(files[0].name);
+		setPan(files[0]);
+	};
+
+	useEffect(() => {
+		if (code) {
+			setSignupDetails({
+				...signupDetails,
+				referralCode: code,
+			});
+		}
+	}, [code]);
+
 	useEffect(() => {
 		if (message) {
 			dispatch({ type: "CLEAR_MESSAGES" });
@@ -191,10 +189,6 @@ function SignUp() {
 			navigate("/");
 		}
 	}, [isAuthenticated]);
-
-	if (loading) {
-		return <Loader />;
-	}
 
 	return (
 		<div className="signup">
@@ -255,11 +249,11 @@ function SignUp() {
 						</div>
 						<div className="files">
 							<div className="single-file">
-								<label htmlFor="files-dropzone">Upload Your Image</label>
+								<label htmlFor="files-dropzone">Upload Your Avatar</label>
 								<div className="file">
 									<Files
 										className="files-dropzone"
-										onChange={(files) => setPhoto(files[0])}
+										onChange={(files) => onAvatarChange(files)}
 										onError={handleError}
 										accepts={["image/png", "image/jpeg", "image/jpg"]}
 										multiple
@@ -272,13 +266,25 @@ function SignUp() {
 										Upload
 									</Files>
 								</div>
+								<p style={{ color: "green" }}>
+									{avatarFileName}
+									{avatarFileName && (
+										<IoIosClose
+											style={{ color: "red" }}
+											onClick={() => {
+												setPhoto(null);
+												setAvatarFileName("");
+											}}
+										/>
+									)}
+								</p>
 							</div>
 							<div className="single-file">
 								<label htmlFor="files-dropzone">Upload Your Aadhar</label>
 								<div className="file">
 									<Files
 										className="files-dropzone"
-										onChange={(files) => setAadhar(files[0])}
+										onChange={(files) => onAadharChange(files)}
 										onError={handleError}
 										accepts={["image/png", "image/jpeg", "image/jpg"]}
 										multiple
@@ -291,13 +297,25 @@ function SignUp() {
 										Upload
 									</Files>
 								</div>
+								<p style={{ color: "green" }}>
+									{aadharFileName}
+									{aadharFileName && (
+										<IoIosClose
+											style={{ color: "red" }}
+											onClick={() => {
+												setAadhar(null);
+												setAadharFileName("");
+											}}
+										/>
+									)}
+								</p>
 							</div>
 							<div className="single-file">
 								<label htmlFor="files-dropzone">Upload Your PAN</label>
 								<div className="file">
 									<Files
 										className="files-dropzone"
-										onChange={(files) => setPan(files[0])}
+										onChange={(files) => onPanChange(files)}
 										onError={handleError}
 										accepts={["image/png", "image/jpeg", "image/jpg"]}
 										multiple
@@ -310,10 +328,22 @@ function SignUp() {
 										Upload
 									</Files>
 								</div>
+								<p style={{ color: "green" }}>
+									{panFileName}{" "}
+									{panFileName && (
+										<IoIosClose
+											style={{ color: "red" }}
+											onClick={() => {
+												setPan(null);
+												setPanFileName("");
+											}}
+										/>
+									)}
+								</p>
 							</div>
 						</div>
-						<button className="submitBtn" type="submit">
-							Register Now
+						<button className="submitBtn" disabled={loading} type="submit">
+							{loading ? <TextLoader /> : "Register Now"}
 						</button>
 						<p className="account">
 							Already have an Account? <span onClick={() => navigate("/")}>Log In</span>
