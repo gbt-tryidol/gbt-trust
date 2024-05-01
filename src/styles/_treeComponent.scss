@@ -8,6 +8,7 @@
 		@include flex(row, space-between, center);
 		padding: 0 1rem;
 	}
+	background-color:rgba(79, 144, 255, 0.0705882353);
 
 	.tree-item {
 		width: fit-content;
@@ -19,7 +20,7 @@
 
 	.chakra-stack {
 		width: 100vw;
-		background-color: #4f90ff12;
+		// background-color: #4f90ff12;
 	}
 
 	.rd3t-node {
@@ -28,5 +29,12 @@
 		> svg {
 			width: 100%;
 		}
-	}
+	.rd3t-tree-container {
+		width: 100vw;
+		background-color: #4f90ff12;
+	}.rd3t-tree-container {
+		width: 100vw;
+		background-color: #4f90ff12;
+	}}
 }
+
