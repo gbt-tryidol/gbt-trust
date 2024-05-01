@@ -2350,6 +2350,15 @@
 		}
 	}
 
+	.request{
+		> .request-table {
+			.search{
+				display: none;
+			}
+		}
+	}
+
+
 	.tree__content {
 		width: 100vw;
 		.rd3t-g{

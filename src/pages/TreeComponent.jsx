@@ -4,10 +4,7 @@ import { generateTree } from '../redux/actions/index';
 import Loader from '../components/Loader';
 import AdminSidebar from '../components/AdminSidebar';
 import Bar from '../components/Bar';
-import Select, { components } from 'react-select';
 import { Box, Stack } from '@chakra-ui/layout';
-import { Circle } from '@chakra-ui/react';
-import { v4 } from 'uuid';
 
 const Tree = lazy(() => import('react-d3-tree'));
 
@@ -65,7 +62,7 @@ const TreeComponent = () => {
       setTreeData(tree);
     }
   }, [tree]);
-  
+
   if (loading || treeLoading) {
     return <Loader />;
   }

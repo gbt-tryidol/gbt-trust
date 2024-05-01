@@ -13,9 +13,9 @@ import { getAllEvents, requestEvent, getBankDetails } from "../redux/actions/ind
 const vehicleHeaders = ["Request Date", "Event Name", "Budget", "Status"];
 
 const analyticsFilterOptions = [
-	{ value: "", label: "Select Account Type" },
-	{ value: "current", label: "current" },
-	{ value: "saving", label: "saving" },
+	{ value: "", label: "Select Status" },
+	{ value: "approved", label: "Approved" },
+	{ value: "notapproved", label: "Not Approved" },
 ];
 
 const customStyles = {
