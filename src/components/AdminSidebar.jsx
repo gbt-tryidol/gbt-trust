@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-mixed-spaces-and-tabs */
 import { useEffect, useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import { HiMenuAlt4 } from "react-icons/hi";
@@ -9,8 +7,6 @@ import { MdGroup } from "react-icons/md";
 import { FaCalendarAlt } from "react-icons/fa";
 import { ImTree } from "react-icons/im";
 import { FaPeopleGroup } from "react-icons/fa6";
-
-// eslint-disable-next-line no-unused-vars
 import userImg from "../assets/GBT.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +70,6 @@ const AdminSidebar = () => {
 						: {}
 				}
 			>
-				{/* <h2>Logo.</h2> */}
 				<img src={userImg} alt="user image" />
 				<h2>
 					{user?.firstName} {user?.lastName}
@@ -82,7 +77,6 @@ const AdminSidebar = () => {
 				<h5>{user?.role}</h5>
 				<DivOne location={location} />
 
-				{/* <button onClick={() => { doSignOut().then(() => { navigate('/') }) }} id="logout-sidebar">Logout</button> */}
 				<button onClick={logoutHandler} id="logout-sidebar">
 					Logout
 				</button>
@@ -105,9 +99,7 @@ const DivOne = ({ location }) => {
 				<Li url="/dashboard" text="Dashboard" Icon={RiDashboardFill} location={location} />
 				<Li url="/profile" text="Profile" Icon={IoMdPerson} location={location} />
 				<Li url="/team" text="Team" Icon={MdGroup} location={location} />
-				{/* <Li url="/epin" text="E-Pin" Icon={IoMdKey} location={location} /> */}
 				<Li url="/bank/transfer" text="Bank Transfer" Icon={RiBankFill} location={location} />
-				{/* <Li url="/statements" text="Statements" Icon={AiFillFileText} location={location} /> */}
 				{user?.role === "user" && <Li url="/refers" text="Refers" Icon={IoMdShare} location={location} />}
 				{user?.role === "user" && <Li url="/request" text="Create a Request" Icon={FaCalendarAlt} location={location} />}
 				<Li url="/tree" text="My Tree" Icon={ImTree} location={location} />

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/GBT.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../redux/actions";
-import { Loader, TextLoader } from "../components";
+import { TextLoader } from "../components";
 
 function SignIn() {
 	const dispatch = useDispatch();
@@ -48,7 +48,6 @@ function SignIn() {
 
 	return (
 		<div className="signin">
-			{/* {userLoggedIn && (<Navigate to="/dashboard" replace={true} />)} */}
 			<main className="login-main">
 				<section>
 					<form>

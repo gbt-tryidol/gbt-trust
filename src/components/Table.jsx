@@ -36,7 +36,7 @@ const customStyles = {
 	}),
 };
 
-/* eslint-disable react/prop-types */
+
 function Table({
 	data,
 	headers,

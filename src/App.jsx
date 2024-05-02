@@ -59,11 +59,6 @@ const App = () => {
 				<Route element={<ProtectedRoute />}>
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/profile" element={<Profile />} />
-					{/* <Route path="/profile/personal" element={<ProfileComponents key={1} />} />
-						<Route path="/profile/bank" element={<BankComponent key={2} />} />
-						<Route path="/profile/contact" element={<ContactComponent key={3} />} />
-						<Route path="/profile/setting" element={<SettingsComponent key={4} />} /> */}
-					{/* </Route> */}
 					<Route path="/payment" element={<Payment />} />
 					<Route path="/team" element={<Team />} />
 					<Route path="/program" element={<OurProgram />} />

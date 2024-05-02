@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import "../styles/app.scss";
 
 const CardSO = ({ nodeData }) => {
