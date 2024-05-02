@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import signupImg from "../assets/signup.png";
 import { useEffect, useState } from "react";
 import topCircle from "../assets/register-top.png";
@@ -10,10 +9,7 @@ import Select, { components } from "react-select";
 import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../redux/actions/index";
-import { Loader, TextLoader } from "../components";
-import { FaCross } from "react-icons/fa6";
-import { FaCrosshairs } from "react-icons/fa";
-
+import { TextLoader } from "../components";
 function SignUp() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();

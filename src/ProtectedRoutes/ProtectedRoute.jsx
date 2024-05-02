@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -19,7 +18,6 @@ const ProtectedRoute = () => {
 
 	useEffect(() => {
 		if (!isAuthenticated) {
-			// toast.error("You are not Authenticated to visit this Page");ccccc
 			navigate("/");
 		}
 	}, [isAuthenticated]);

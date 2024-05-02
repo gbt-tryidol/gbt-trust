@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar, Loader, OwnerRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
 import Select, { components } from "react-select";
 import { LineChart } from "../components/Chart";

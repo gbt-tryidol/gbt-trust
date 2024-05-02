@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import useRazorpay from "react-razorpay";
 import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";

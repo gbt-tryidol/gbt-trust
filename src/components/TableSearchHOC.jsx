@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { useTable, useSortBy, usePagination } from "react-table";
 import { AiOutlineSortAscending, AiOutlineSortDescending } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";

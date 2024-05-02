@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar } from "../components";
 import Select, { components } from "react-select";
 import { IoIosArrowDown } from "react-icons/io";

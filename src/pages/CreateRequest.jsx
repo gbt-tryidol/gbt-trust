@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
 import { Bar, AdminSidebar, Loader, RequestRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
 import Select, { components } from "react-select";

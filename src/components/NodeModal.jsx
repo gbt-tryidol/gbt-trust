@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Button } from "@chakra-ui/button";
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/modal";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";

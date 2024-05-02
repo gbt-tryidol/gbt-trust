@@ -1,25 +1,13 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, ProgramRow, Program2Row } from "../components";
-import Select, { components } from "react-select";
-import { CUSTOME_STYLES } from "../assets/data/constants";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaChildren } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { registrationHeader, ownerSortOptions } from "../assets/data/owner";
 import { FaSort } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { acceptEvent, getAllEvents } from "../redux/actions/";
 
 //  ?--- dropdown indicator
-
-const DropdownIndicator = (props) => {
-	return (
-		<components.DropdownIndicator {...props}>
-			<FaSort />
-		</components.DropdownIndicator>
-	);
-};
-
 const eventHeader = ["Event Name", "Requested By", "Request Date", "Program Date", "Budget", "Action"];
 const passedEventHeader = ["Event Name", "Requested By", "Program Date", "Budget", "Action"];
 
@@ -139,13 +127,6 @@ function OurProgram() {
 							<TableContainer className="mini-table1">
 								<TableHeading>
 									<p>Program Request</p>
-									{/* <input type="text" placeholder="Search..." />
-									<Select
-										defaultValue={ownerSortOptions[0]}
-										options={ownerSortOptions}
-										components={{ DropdownIndicator }}
-										styles={CUSTOME_STYLES}
-									/> */}
 								</TableHeading>
 								<Table>
 									<TableHeaders
@@ -161,13 +142,6 @@ function OurProgram() {
 							<TableContainer className="mini-table1">
 								<TableHeading>
 									<p>Program History</p>
-									{/* <input type="text" placeholder="Search..." />
-									<Select
-										defaultValue={ownerSortOptions[0]}
-										options={ownerSortOptions}
-										components={{ DropdownIndicator }}
-										styles={CUSTOME_STYLES}
-									/> */}
 								</TableHeading>
 								<Table>
 									<TableHeaders
@@ -187,13 +161,6 @@ function OurProgram() {
 							<TableContainer className="mini-table1">
 								<TableHeading>
 									<p>Program Request</p>
-									{/* <input type="text" placeholder="Search..." />
-									<Select
-										defaultValue={ownerSortOptions[0]}
-										options={ownerSortOptions}
-										components={{ DropdownIndicator }}
-										styles={CUSTOME_STYLES}
-									/> */}
 								</TableHeading>
 								<Table>
 									<TableHeaders
@@ -205,28 +172,6 @@ function OurProgram() {
 									<TableBody TableRow={Program2Row} data={eventdata} />
 								</Table>
 							</TableContainer>
-
-							{/* <TableContainer className="mini-table1">
-								<TableHeading>
-									<p>Program History</p>
-									{/* <input type="text" placeholder="Search..." />
-									<Select
-										defaultValue={ownerSortOptions[0]}
-										options={ownerSortOptions}
-										components={{ DropdownIndicator }}
-										styles={CUSTOME_STYLES}
-									/> 
-								</TableHeading>
-								<Table>
-									<TableHeaders
-										style={{
-											gridTemplateColumns: `repeat(${eventHeader.length},1fr)`,
-										}}
-										headers={eventHeader}
-									/>
-									<TableBody TableRow={ProgramRow} data={passedEventdata} />
-								</Table>
-							</TableContainer> */}
 						</>
 					)}
 				</section>
