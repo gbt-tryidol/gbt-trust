@@ -96,11 +96,8 @@ export function ProfileComponents() {
 
 	const profileHandler = (e) => {
 		e.preventDefault();
-		alert("hii");
-		// alert("huihuihui");
 		dispatch(updateProfile(profile));
 		dispatch(loadUser());
-		alert("hii");
 	};
 
 	useEffect(() => {
@@ -333,11 +330,8 @@ export function SettingsComponent() {
 
 	const profileHandler = (e) => {
 		e.preventDefault();
-		alert("hii");
-		// alert("huihuihui");
 		dispatch(updateProfile(profile));
-		dispatch(loadUser());
-		alert("hii");
+		// dispatch(loadUser());
 	};
 
 	useEffect(() => {
