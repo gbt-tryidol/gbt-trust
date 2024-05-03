@@ -5,6 +5,36 @@ const initialState = {};
 
 export const userReducer = createReducer(initialState, (builder) => {
 	builder
+		.addCase("GENERATE_RESET_TOKEN_REQUEST", (state) => {
+			state.loading = true;
+			state.isAuthenticated = false;
+		})
+		.addCase("GENERATE_RESET_TOKEN_SUCCESS", (state, action) => {
+			state.loading = false;
+			state.user = action.payload.user;
+			state.message = action.payload.message;
+			state.isAuthenticated = true;
+		})
+		.addCase("GENERATE_RESET_TOKEN_FAILURE", (state, action) => {
+			state.loading = false;
+			state.error = "Invalid Credentials";
+			state.isAuthenticated = false;
+		})
+		.addCase("FORGOT_PASSWORD_REQUEST", (state) => {
+			state.loading = true;
+			state.isAuthenticated = false;
+		})
+		.addCase("FORGOT_PASSWORD_SUCCESS", (state, action) => {
+			state.loading = false;
+			state.user = action.payload.user;
+			state.message = action.payload.message;
+			state.isAuthenticated = true;
+		})
+		.addCase("FORGOT_PASSWORD_FAILURE", (state, action) => {
+			state.loading = false;
+			state.error = "Invalid Credentials";
+			state.isAuthenticated = false;
+		})
 		.addCase("GET_LOGIN_REQUEST", (state) => {
 			state.loading = true;
 			state.isAuthenticated = false;
