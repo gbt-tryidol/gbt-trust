@@ -1,4 +1,3 @@
-
 import { AdminSidebar, Bar } from "../components";
 import emailjs from "emailjs-com";
 import { TbHandClick } from "react-icons/tb";
@@ -11,11 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendMail } from "../redux/actions";
 import { toast } from "react-toastify";
 
-const events = [
-	"Clicked",
-	"Entered",
-	"Successful",
-];
+const events = ["Clicked", "Entered", "Successful"];
 const Refer = () => {
 	const [email, setEmail] = useState("");
 	const { user, users, activeUsers } = useSelector((state) => state.user);
@@ -59,14 +54,6 @@ const Refer = () => {
 				}
 			);
 	};
-
-	useEffect(() => {
-		if (user && user.role === "admin") {
-			setIsAdmin("admin");
-		} else if (user && user.role === "user") {
-			setIsAdmin("user");
-		}
-	}, [user]);
 
 	if (user?.verified !== "approved") {
 		return (
