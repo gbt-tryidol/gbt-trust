@@ -11,6 +11,7 @@ import TransferAccept from "./components/TransferAccept.jsx";
 // ** pages lazy import()
 
 const SignUp = lazy(() => import("./pages/Signup"));
+const Forgot = lazy(() => import("./pages/Forgot"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Team = lazy(() => import("./pages/Team"));
@@ -56,6 +57,7 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<SignIn />} />
 				<Route path="/signup" element={<SignUp />} />
+				<Route path="/reset/:resetToken" element={<Forgot />} />
 				<Route element={<ProtectedRoute />}>
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/profile" element={<Profile />} />
