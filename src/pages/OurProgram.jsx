@@ -1,4 +1,3 @@
-
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, ProgramRow, Program2Row } from "../components";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaChildren } from "react-icons/fa6";
@@ -6,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSort } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { acceptEvent, getAllEvents } from "../redux/actions/";
+import { toast } from "react-toastify";
 
 //  ?--- dropdown indicator
 const eventHeader = ["Event Name", "Requested By", "Request Date", "Program Date", "Budget", "Action"];
@@ -13,10 +13,11 @@ const passedEventHeader = ["Event Name", "Requested By", "Program Date", "Budget
 
 function OurProgram() {
 	const dispatch = useDispatch();
-	const { events } = useSelector((state) => state.event);
+	const { events, message, error } = useSelector((state) => state.event);
 	const { user } = useSelector((state) => state.user);
 
 	const [usereventdata, setUserEventdata] = useState([]);
+	const [userPassedeventdata, setUserPassedEventdata] = useState([]);
 	const [eventdata, setEventdata] = useState([]);
 	const [passedEventdata, setPassedEventdata] = useState([]);
 
@@ -51,6 +52,7 @@ function OurProgram() {
 							readableDate,
 							event?.eventBudget,
 						],
+						user: event?.eventManager?._id,
 						status:
 							user?.role === "admin" ? (
 								<button
@@ -85,18 +87,31 @@ function OurProgram() {
 						],
 						status: event?.status,
 						_id: event?._id,
+						user: event?.eventManager?._id,
 					});
 				}
 			});
 
-			const userEvent = upcomingEvents.filter((event) => event?.eventManager?._id === user?._id);
-
-			setUserEventdata(setUserEventdata);
+			const userEvent = upcomingEvents.filter((event) => event?.user === user?._id);
+			const userPassedEvent = passedEvents.filter((event) => event?.user === user?._id);
+			setUserPassedEventdata(userPassedEvent);
+			setUserEventdata(userEvent);
 			// Update state with upcoming and passed events
 			setEventdata(upcomingEvents);
 			setPassedEventdata(passedEvents);
 		}
 	}, [events]);
+
+	useEffect(() => {
+		if (error) {
+			toast.error(error);
+			dispatch({ type: "CLEAR_ERRORS" });
+		}
+		if (message) {
+			toast.success(message);
+			dispatch({ type: "CLEAR_MESSAGES" });
+		}
+	}, [message, error, dispatch]);
 
 	return (
 		<div className="admin-container">
@@ -124,35 +139,39 @@ function OurProgram() {
 
 					{user?.role === "user" && (
 						<>
-							<TableContainer className="mini-table1">
-								<TableHeading>
-									<p>Program Request</p>
-								</TableHeading>
-								<Table>
-									<TableHeaders
-										style={{
-											gridTemplateColumns: `repeat(${eventHeader.length},1fr)`,
-										}}
-										headers={eventHeader}
-									/>
-									<TableBody TableRow={ProgramRow} data={eventdata} />
-								</Table>
-							</TableContainer>
+							{usereventdata.length > 0 && (
+								<TableContainer className="mini-table1">
+									<TableHeading>
+										<p>Program Request</p>
+									</TableHeading>
+									<Table>
+										<TableHeaders
+											style={{
+												gridTemplateColumns: `repeat(${eventHeader.length},1fr)`,
+											}}
+											headers={eventHeader}
+										/>
+										<TableBody TableRow={ProgramRow} data={usereventdata} />
+									</Table>
+								</TableContainer>
+							)}
 
-							<TableContainer className="mini-table1">
-								<TableHeading>
-									<p>Program History</p>
-								</TableHeading>
-								<Table>
-									<TableHeaders
-										style={{
-											gridTemplateColumns: `repeat(${passedEventHeader.length},1fr)`,
-										}}
-										headers={passedEventHeader}
-									/>
-									<TableBody TableRow={ProgramRow} data={passedEventdata} />
-								</Table>
-							</TableContainer>
+							{userPassedeventdata.length > 0 && (
+								<TableContainer className="mini-table1">
+									<TableHeading>
+										<p>Program History</p>
+									</TableHeading>
+									<Table>
+										<TableHeaders
+											style={{
+												gridTemplateColumns: `repeat(${passedEventHeader.length},1fr)`,
+											}}
+											headers={passedEventHeader}
+										/>
+										<TableBody TableRow={ProgramRow} data={userPassedeventdata} />
+									</Table>
+								</TableContainer>
+							)}
 						</>
 					)}
 
