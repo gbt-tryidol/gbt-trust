@@ -139,12 +139,26 @@ $textColor: #8a8a8d;
 @import "./treeComponent";
 @import "./kyc";
 @import "./payment";
+@import "./forgot";
 @import "./mediaQueries";
 
 :root {
 	font-family: "Helvetica Rounded", Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
+	height: 100%;
+	width: 100%;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#root {
+	height: 100%;
+	width: 100%;
 }
 
 * {
@@ -283,8 +297,6 @@ a {
 	color: white;
 	border-radius: 10px;
 }
-
-
 
 // bar
 .bar {
