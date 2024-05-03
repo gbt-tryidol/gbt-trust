@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/GBT.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../redux/actions";
-import { TextLoader } from "../components";
+import { Loader, TextLoader } from "../components";
+import { toast } from "react-toastify";
+import { generateResetToken } from "../redux/actions/user.action";
 
 function SignIn() {
 	const dispatch = useDispatch();
@@ -23,6 +25,14 @@ function SignIn() {
 		const name = e.target.name;
 		const value = e.target.value;
 		setLoginDetails({ ...loginDetails, [name]: value });
+	};
+
+	const forgotHandler = () => {
+		if (!loginDetails.email) {
+			toast.error("Please enter your email!");
+			return;
+		}
+		dispatch(generateResetToken(loginDetails.email));
 	};
 
 	const loginHandler = (e) => {
@@ -63,7 +73,9 @@ function SignIn() {
 								<input type="checkbox" checked={isChecked} name="lsRememberMe" onChange={onChangeCheckbox} />
 								<label>Remember me</label>
 							</div>
-							<p>Forget Password?</p>
+							<p style={{ cursor: "pointer" }} onClick={forgotHandler}>
+								Forget Password?
+							</p>
 						</div>
 						<button onClick={loginHandler} disabled={loading} className="submitBtn" type="submit">
 							{loading ? <TextLoader /> : "Log In"}

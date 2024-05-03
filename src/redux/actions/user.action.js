@@ -32,6 +32,53 @@ export const userLogin = (loginDetails) => async (dispatch) => {
 	}
 };
 
+export const generateResetToken = (email) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "GENERATE_RESET_TOKEN_REQUEST",
+		});
+		console.log(email);
+		const { data } = await axios.post(`${URI}/forgot`, { email });
+		const payload = {
+			message: data.message,
+		};
+
+		dispatch({
+			type: "GENERATE_RESET_TOKEN_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "GENERATE_RESET_TOKEN_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
+export const resetPassword = (password, resetToken) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "FORGOT_PASSWORD_REQUEST",
+		});
+		const { data } = await axios.put(`${URI}/password/reset/${resetToken}`, { password });
+		const payload = {
+			message: data.message,
+		};
+
+		dispatch({
+			type: "FORGOT_PASSWORD_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "FORGOT_PASSWORD_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
 export const updateProfile = (profile) => async (dispatch) => {
 	try {
 		dispatch({
