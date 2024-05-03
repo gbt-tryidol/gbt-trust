@@ -1,11 +1,12 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar, Loader, OwnerRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
 import Select, { components } from "react-select";
 import { LineChart } from "../components/Chart";
 import { IoIosArrowDown } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTeam } from "../redux/actions";
+
 
 const teamGroupHeaders = ["#", "Name", "Rank", "Total Income", "Address"];
 
@@ -88,6 +89,21 @@ const Profile = () => {
 	const [defaultValue, setDefaultValue] = useState({});
 	const [team, setTeam] = useState([]);
 	const [topPerformer, setTopPerformer] = useState([]);
+
+	// Memoize the mapped performers to avoid unnecessary re-renders
+	const memoizedPerformers = useMemo(() => {
+		return topPerformer.map((top) => (
+			<div key={top._id} className="singlePerformer">
+				<div className="performer-image">
+					<div className="name">
+						<p>{top.name}</p>
+						<p>{top.rank}</p>
+					</div>
+				</div>
+				<div className="price">{top?.totalBonus}</div>
+			</div>
+		));
+	}, [topPerformer]);
 
 	const hamdleTeamSelect = (selectedValue) => {
 		dispatch(getTeam(selectedValue.value));
@@ -204,21 +220,7 @@ const Profile = () => {
 						<div className="top_performer">
 							<div className="heading">Top Performers</div>
 							<div className="table-performer">
-								{loading && <Loader />}
-								{!loading &&
-									topPerformer.map((top) => {
-										return (
-											<div key={top._id} className="singlePerformer">
-												<div className="performer-image">
-													<div className="name">
-														<p>{top.name}</p>
-														<p>{top.rank}</p>
-													</div>
-												</div>
-												<div className="price">{top?.totalBonus}</div>
-											</div>
-										);
-									})}
+								{loading ? <Loader /> : memoizedPerformers}
 							</div>
 						</div>
 						<div className="group_performance">

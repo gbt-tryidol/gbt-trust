@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import AdminSidebar from "../components/AdminSidebar";
 import { Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, UserTransactionRow, AdminTransactionRow, Transfer } from "../components";
 import Select, { components } from "react-select";
@@ -6,14 +6,12 @@ import { FaRupeeSign, FaWallet, FaSort } from "react-icons/fa";
 import { CUSTOME_STYLES } from "../assets/data/constants";
 import { IoIosArrowForward } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
-import UserImg from "../assets/dummy_image.png";
 import { BsThreeDots } from "react-icons/bs";
 
 import { bankTransferHeaders, bankTransferSortOptions } from "../assets/data/owner";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTransferRequest, getTransferRequestById, getBankDetails } from "../redux/actions/index";
-import { toast } from "react-toastify";
 
 const DropdownIndicator = (props) => {
 	return (
@@ -84,9 +82,7 @@ function BankTransfer() {
 					<CardWidget style={{ backgroundColor: "#003D79" }} heading="Transfer Amount" Icon={RiBankFill} Action={IoIosArrowForward} />
 				</div>
 
-				{/* Wallet Transfer Request  */}
 
-				{/* My wallet start */}
 				{user?.role === "user" ? (
 					<div className="wallet-pin-container">
 						<section className="my-wallet">
@@ -109,53 +105,12 @@ function BankTransfer() {
 						<div className="top_performer">
 							<div className="heading">Withdrawal Request</div>
 							<div className="table-performer">
-								{/* <div className="singlePerformer">
-									<div className="performer-image">
-										<img src={UserImg} alt="Dummy Image" width={60} height={60} />
-										<div className="name">
-											<p>Jane Cooper</p>
-											<p>Rank 1</p>
-										</div>
-									</div>
-									<div className="price">₹ 80,000.00</div>
-								</div>
-								<div className="singlePerformer">
-									<div className="performer-image">
-										<img src={UserImg} alt="Dummy Image" width={60} height={60} />
-										<div className="name">
-											<p>Jane Cooper</p>
-											<p>Rank 1</p>
-										</div>
-									</div>
-									<div className="price">₹ 80,000.00</div>
-								</div>
-								<div className="singlePerformer">
-									<div className="performer-image">
-										<img src={UserImg} alt="Dummy Image" width={60} height={60} />
-										<div className="name">
-											<p>Jane Cooper</p>
-											<p>Rank 1</p>
-										</div>
-									</div>
-									<div className="price">₹ 80,000.00</div>
-								</div>
-								<div className="singlePerformer">
-									<div className="performer-image">
-										<img src={UserImg} alt="Dummy Image" width={60} height={60} />
-										<div className="name">
-											<p>Jane Cooper</p>
-											<p>Rank 1</p>
-										</div>
-									</div>
-									<div className="price">₹ 80,000.00</div>
-								</div> */}
+								
 							</div>
 						</div>
 					</div>
 				) : null}
-				{/* My wallet End  */}
 
-				{/* Wallet Transfer Request  */}
 
 				{user?.role === "user" ? <Transfer /> : null}
 

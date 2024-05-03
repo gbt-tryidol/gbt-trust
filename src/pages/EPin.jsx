@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, EpinRow } from "../components";
 import Select, { components } from "react-select";
 import { CUSTOME_STYLES } from "../assets/data/constants";

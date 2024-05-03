@@ -954,6 +954,9 @@
 			}
 		}
 	}
+	.tree__content {
+		transform: translateX(-100px); 
+	}
 }
 
 @media screen and (width<=750px) {
@@ -1136,6 +1139,10 @@
 						}
 					}
 				}
+				
+				> .right-container{
+					display: none;
+				}
 			}
 		}
 	}
@@ -1155,6 +1162,9 @@
 					p {
 						font-size: 1rem;
 					}
+				}
+				> .right-container{
+					display: none;
 				}
 			}
 		}
@@ -1349,6 +1359,13 @@
 				width: 100%;
 				margin-left: 0.5rem;
 			}
+		}
+	}
+	.tree__content {
+		width: 100vw;
+		transform: translatex(0);
+		.rd3t-g{
+			transform: translateX(250px)translateY(100px);
 		}
 	}
 }
@@ -2330,6 +2347,22 @@
 		}
 		.css-93d4rr-control {
 			display: none;
+		}
+	}
+
+	.request{
+		> .request-table {
+			.search{
+				display: none;
+			}
+		}
+	}
+
+
+	.tree__content {
+		width: 100vw;
+		.rd3t-g{
+			transform: translateX(150px)translateY(100px);
 		}
 	}
 }

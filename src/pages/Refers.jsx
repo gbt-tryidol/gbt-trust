@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar } from "../components";
 import emailjs from "emailjs-com";
 import { TbHandClick } from "react-icons/tb";
@@ -7,21 +7,16 @@ import { FaPercentage } from "react-icons/fa";
 import { LineChart } from "../components/Chart";
 import { useEffect, useState } from "react";
 import { IoSend } from "react-icons/io5";
-import dummyImg from "../assets/dummy_image.png";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMail } from "../redux/actions";
 import { toast } from "react-toastify";
 
 const events = [
-	//   "Click on the Link",
-	//   "Enter referral code",
 	"Clicked",
 	"Entered",
 	"Successful",
 ];
 const Refer = () => {
-	const [isAdmin, setIsAdmin] = useState("user");
 	const [email, setEmail] = useState("");
 	const { user, users, activeUsers } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
@@ -125,29 +120,6 @@ const Refer = () => {
 							<input type="text" value={`https://gbt-trust.vercel.app/signup?code=${user?.referralCode}`} />
 							<button onClick={copyToClipboard}>Copy</button>
 						</div>
-						{/* <div>
-							<h4>Send To</h4>
-							<div>
-								<div>
-									<img src={dummyImg} alt="dummy image" />
-									<div>
-										<h4>rahulapha@gmail.com</h4>
-										<p>Ralph Edwards</p>
-									</div>
-								</div>
-								<div>Send</div>
-							</div>
-							<div>
-								<div>
-									<img src={dummyImg} alt="dummy image" />
-									<div>
-										<h4>rahulapha@gmail.com</h4>
-										<p>Ralph Edwards</p>
-									</div>
-								</div>
-								<div>Send</div>
-							</div>
-						</div> */}
 					</div>
 				</section>
 				<section className="TractContainer">

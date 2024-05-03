@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-/* eslint-disable react/prop-types */
+
 
 export const TableContainer = ({ className = "tableContainers", children }) => {
 	return <section className={`tableContainers ${className}`}>{children}</section>;

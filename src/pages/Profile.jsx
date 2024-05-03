@@ -1,17 +1,25 @@
-import { Bar, AdminSidebar, ProfileComponents, ContactComponent, BankComponent, SettingsComponent } from "../components";
+import { Bar, AdminSidebar, ProfileComponents, ContactComponent, BankComponent, SettingsComponent, Loader } from "../components";
 import { MdEmail, MdKeyboardArrowDown } from "react-icons/md";
 import userImg from "../assets/userImage.png";
 import { useEffect, useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "../redux/actions";
 
 const Profile = () => {
-	const { user } = useSelector((state) => state.user);
+	const { user , loading } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	const [active, setActive] = useState("personal");
-	// const [isAdmin, setIsAdmin] = useState("admin");
 
+	useEffect(()=>{
+		dispatch(loadUser());
+	},[])
+	// const [isAdmin, setIsAdmin] = useState("admin");
+	if(loading){
+		return <Loader />
+	}
 	return (
 		<div className="admin-container">
 			<AdminSidebar />

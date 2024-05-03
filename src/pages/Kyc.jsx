@@ -1,8 +1,5 @@
-/* eslint-disable react/prop-types */
+
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, KYCRow, Loader } from "../components";
-import Select, { components } from "react-select";
-import { CUSTOME_STYLES } from "../assets/data/constants";
-import { FaSort } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers, verifyUser } from "../redux/actions/index";
@@ -141,7 +138,6 @@ function Kyc() {
 			<main className="kycPage">
 				<Bar heading="KYC" />
 				<section className="kyc">
-					{/* Your existing JSX code */}
 					{selectedUser && (
 						<section className="kycregistration">
 							<div className="heading">
@@ -197,7 +193,6 @@ function Kyc() {
 					<TableContainer className="kycTable">
 						<TableHeading>
 							<p>Registration List</p>
-							{/* Search input field */}
 							<input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 						</TableHeading>
 						<Table>
@@ -207,7 +202,7 @@ function Kyc() {
 								}}
 								headers={kycHeaders}
 							/>
-							<TableBody onClick={onSelectUser} TableRow={KYCRow} data={sortedData} /> {/* Render sorted data */}
+							<TableBody onClick={onSelectUser} TableRow={KYCRow} data={sortedData} />
 						</Table>
 					</TableContainer>
 				</section>
@@ -218,7 +213,6 @@ function Kyc() {
 
 export default Kyc;
 
-// Your existing components and exports...
 
 export const CardWidget = ({ heading, Icon, Action, value, style }) => {
 	return (

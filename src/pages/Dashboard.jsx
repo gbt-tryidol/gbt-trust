@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
 import {
 	AdminSidebar,
@@ -11,6 +11,7 @@ import {
 	DashboardRow,
 	ongoingEventRow,
 	LevelRow,
+	Loader,
 } from "../components";
 import { MdKeyboardArrowDown, MdRefresh } from "react-icons/md";
 import Select, { components } from "react-select";
@@ -200,14 +201,12 @@ const DropdownIndicator = (props) => {
 const ongoingEventsHeaders = ["Event Manager", "Date and Time", "Agenda", "Guest Number", "Location"];
 
 const Dashboard = () => {
-	// const [isAdmin, setIsAdmin] = useState("user");
-	const { user, users, activeUsers } = useSelector((state) => state.user);
+	const { user, users, activeUsers , loading } = useSelector((state) => state.user);
 	const { events } = useSelector((state) => state.event);
 	const [ongoingEventData, setOngoingEventData] = useState([]);
 	const [levelsdata, setLevelsData] = useState([]);
 	const [todaysJoining, setTodaysJoining] = useState([]);
 	const dispatch = useDispatch();
-	// const Table = useCallback(TableSearchTOC(driverDetailsHeaders, driverDetailsData, "dashboard-product-box", "Customers", true), [driverDetailsData]);
 
 	useEffect(() => {
 		const token = Cookies.get("token");
@@ -298,6 +297,9 @@ const Dashboard = () => {
 	const option = {
 		tension: 0,
 	};
+	if(loading){
+		return <Loader />
+	}
 	return (
 		<div className="admin-container">
 			<AdminSidebar />
