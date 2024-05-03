@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers, verifyUser } from "../redux/actions/index";
 import { toast } from "react-toastify";
+import { MdRefresh } from "react-icons/md";
 
 const kycSortOptions = [
 	{ value: "", label: "Sort By" },
@@ -59,6 +60,10 @@ function Kyc() {
 		}
 		setSelectedUser(user.user);
 	};
+
+	const refreshPage = () => {
+		window.location.reload();
+	}
 
 	useEffect(() => {
 		if (users && users.length > 0) {
@@ -193,6 +198,7 @@ function Kyc() {
 					<TableContainer className="kycTable">
 						<TableHeading>
 							<p>Registration List</p>
+							<MdRefresh style={{marginLeft:"auto",marginRight:"1rem",color:"#fcfcfc",fontSize:"1.7rem",cursor:"pointer"}} onClick={refreshPage} />
 							<input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 						</TableHeading>
 						<Table>
