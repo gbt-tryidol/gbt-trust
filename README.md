@@ -84,6 +84,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 The following individuals have contributed to the development of the GBT app:
 
-- John Doe ([@johndoe](https://github.com/johndoe))
-- Jane Smith ([@janesmith](https://github.com/janesmith))
-- Alex Johnson ([@alexjohnson](https://github.com/alexjohnson))
+- Raj Malpani ([@RajMalpani](https://github.com/CODER-Rxj11))
+- Aryan Gupta ([@AryanGupta](https://github.com/aryan9901))
+- TryIdol Technologies ([@TryIdol](https://github.com/Techidol))
