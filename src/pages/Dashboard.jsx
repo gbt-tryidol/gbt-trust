@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
 	AdminSidebar,
@@ -201,7 +200,7 @@ const DropdownIndicator = (props) => {
 const ongoingEventsHeaders = ["Event Manager", "Date and Time", "Agenda", "Guest Number", "Location"];
 
 const Dashboard = () => {
-	const { user, users, activeUsers , loading } = useSelector((state) => state.user);
+	const { user, users, activeUsers, loading } = useSelector((state) => state.user);
 	const { events } = useSelector((state) => state.event);
 	const [ongoingEventData, setOngoingEventData] = useState([]);
 	const [levelsdata, setLevelsData] = useState([]);
@@ -297,8 +296,8 @@ const Dashboard = () => {
 	const option = {
 		tension: 0,
 	};
-	if(loading){
-		return <Loader />
+	if (loading) {
+		return <Loader />;
 	}
 	return (
 		<div className="admin-container">
@@ -404,7 +403,7 @@ const Dashboard = () => {
 					</section>
 				)}
 				{/* DASHBOARD CHART */}
-				{user?.role === "admin" ? (
+				{todaysJoining.length > 0 && user?.role === "admin" ? (
 					<section className="levels">
 						<TableContainer className="dashboardOngoingEventTableContainer">
 							<TableHeading>

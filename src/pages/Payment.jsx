@@ -1,4 +1,3 @@
-
 import useRazorpay from "react-razorpay";
 import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
@@ -65,7 +64,9 @@ const Payment = () => {
 							Authorization: `Bearer ${token}`, // Include the token in the Authorization header
 						},
 					};
-					await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/rz/payment-verify`, paymentData, config);
+					// eslint-disable-next-line no-unused-vars
+					const data = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/rz/payment-verify`, paymentData, config);
+					// console.log(data);
 					setPlan("premium");
 					axios
 						.post(
@@ -76,7 +77,7 @@ const Payment = () => {
 							config
 						)
 						.then((res) => {
-							// console.log(res);
+							console.log(res);
 							toast.success("payment done");
 							dispatch(addReferral(user?.track?.code));
 							emailjs.send("gbt", "template_vcm5glx", { email_to: user.email, name_to: user.name }, "1DqRXIf7r7ATgeDMQ").then(

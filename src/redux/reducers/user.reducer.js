@@ -19,6 +19,17 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.error = "Invalid Credentials";
 			state.isAuthenticated = false;
 		})
+		.addCase("TRACK_USER_REQUEST", (state) => {
+			state.loading = true;
+		})
+		.addCase("TRACK_USER_SUCCESS", (state, action) => {
+			state.loading = false;
+			state.track = action.payload.track;
+		})
+		.addCase("TRACK_USER_FAILURE", (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		})
 		.addCase("FORGOT_PASSWORD_REQUEST", (state) => {
 			state.loading = true;
 			state.isAuthenticated = false;

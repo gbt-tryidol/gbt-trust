@@ -175,8 +175,6 @@ export const addReferral = (code) => async (dispatch) => {
 			type: "ADD_REFERRAL_REQUEST",
 		});
 
-		alert(code);
-
 		const token = Cookies.get("token"); // Get the token from the cookie
 		// eslint-disable-next-line no-unused-vars
 		const config = {
@@ -184,10 +182,8 @@ export const addReferral = (code) => async (dispatch) => {
 				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
 			},
 		};
-		console.log("hii");
 
 		const { data } = await axios.get(`${URI}/referral/generated-link/:referralCode=${code}`, config);
-		console.log(data);
 		const payload = {
 			user: data.data.user,
 			// message: data.message,
@@ -202,6 +198,38 @@ export const addReferral = (code) => async (dispatch) => {
 		console.log(error);
 		dispatch({
 			type: "ADD_REFERRAL_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
+export const trackUser = (email) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "TRACK_USER_REQUEST",
+		});
+
+		const token = Cookies.get("token"); // Get the token from the cookie
+		// eslint-disable-next-line no-unused-vars
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+			},
+		};
+
+		const { data } = await axios.get(`${URI}/track/user?email=${email}`, config, {});
+		const payload = {
+			track: data.data,
+		};
+
+		dispatch({
+			type: "TRACK_USER_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "TRACK_USER_FAILURE",
 			payload: error.response.data.message,
 		});
 	}
