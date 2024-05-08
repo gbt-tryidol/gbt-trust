@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import { HiMenuAlt4 } from "react-icons/hi";
@@ -41,7 +42,7 @@ const AdminSidebar = () => {
 		if (error) {
 			dispatch({ type: "CLEAR_ERRORS" });
 		}
-	}, [message, error, user]);
+	}, [message, error, user, dispatch]);
 
 	const logoutHandler = () => {
 		dispatch(logoutUser());

@@ -16,11 +16,13 @@ const Profile = () => {
 	useEffect(() => {
 		dispatch(loadUser());
 		dispatch(getTeam());
-	}, []);
+	}, [dispatch]);
+
 	// const [isAdmin, setIsAdmin] = useState("admin");
-	if (loading) {
+	if (loading || user === undefined) {
 		return <Loader />;
 	}
+
 	return (
 		<div className="admin-container">
 			<AdminSidebar />
