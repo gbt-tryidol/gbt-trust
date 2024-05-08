@@ -198,7 +198,7 @@ function Kyc() {
 					<TableContainer className="kycTable">
 						<TableHeading>
 							<p>Registration List</p>
-							<MdRefresh style={{marginLeft:"auto",marginRight:"1rem",color:"#fcfcfc",fontSize:"1.7rem",cursor:"pointer"}} onClick={refreshPage} />
+							<MdRefresh sty	le={{marginLeft:"auto",marginRight:"1rem",color:"#fcfcfc",fontSize:"1.7rem",cursor:"pointer"}} onClick={refreshPage} />
 							<input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 						</TableHeading>
 						<Table>
