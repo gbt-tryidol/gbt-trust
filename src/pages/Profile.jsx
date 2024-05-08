@@ -1,24 +1,25 @@
 import { Bar, AdminSidebar, ProfileComponents, ContactComponent, BankComponent, SettingsComponent, Loader } from "../components";
 import { MdEmail, MdKeyboardArrowDown } from "react-icons/md";
-import userImg from "../assets/userImage.png";
 import { useEffect, useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../redux/actions";
+import { getTeam, loadUser } from "../redux/actions";
 
 const Profile = () => {
-	const { user , loading } = useSelector((state) => state.user);
+	const { user, loading } = useSelector((state) => state.user);
+	const { teams } = useSelector((state) => state.team);
 	const dispatch = useDispatch();
 
 	const [active, setActive] = useState("personal");
 
-	useEffect(()=>{
+	useEffect(() => {
 		dispatch(loadUser());
-	},[])
+		dispatch(getTeam());
+	}, []);
 	// const [isAdmin, setIsAdmin] = useState("admin");
-	if(loading){
-		return <Loader />
+	if (loading) {
+		return <Loader />;
 	}
 	return (
 		<div className="admin-container">
@@ -62,7 +63,7 @@ const Profile = () => {
 					)}
 					{user?.role === "admin" ? (
 						<div className="container">
-							<div className="top" style={{ backgroundColor: "#9ab1c8" }}>
+							{/* <div className="top" style={{ backgroundColor: "#9ab1c8" }}>
 								<div className="footer">
 									<div className="card">
 										<div className="heading">
@@ -81,7 +82,7 @@ const Profile = () => {
 											</svg>
 											Total Refers
 										</div>
-										<div className="content">{user?.refers?.length}</div>
+										<div className="content">{teams?.length || 0}</div>
 									</div>
 
 									<div className="card">
@@ -124,7 +125,7 @@ const Profile = () => {
 										<div className="content">{user?.balance}</div>
 									</div>
 								</div>
-							</div>
+							</div> */}
 							<div className="below">
 								<h1>Personal Details</h1>
 								<h2>
@@ -179,7 +180,7 @@ const Profile = () => {
 										</svg>
 										Total Refers
 									</div>
-									<div className="content">{user?.refers.length}</div>
+									<div className="content">{teams?.length - 1 || 0}</div>
 								</div>
 
 								<div className="card">
@@ -199,7 +200,7 @@ const Profile = () => {
 										</svg>
 										Total Refers
 									</div>
-									<div className="content">{user?.refers.length}</div>
+									<div className="content">{teams?.length - 1 || 0}</div>
 								</div>
 
 								<div className="card">
@@ -219,7 +220,7 @@ const Profile = () => {
 										</svg>
 										Total Refers
 									</div>
-									<div className="content">{user?.refers.length}</div>
+									<div className="content">{teams?.length - 1 || 0}</div>
 								</div>
 							</div>
 						</div>

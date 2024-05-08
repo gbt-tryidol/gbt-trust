@@ -4,16 +4,19 @@ import { TbHandClick } from "react-icons/tb";
 import { AiFillLike } from "react-icons/ai";
 import { FaPercentage } from "react-icons/fa";
 import { LineChart } from "../components/Chart";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMail } from "../redux/actions";
 import { toast } from "react-toastify";
+import { trackUser } from "../redux/actions/user.action";
 
-const events = ["Clicked", "Entered", "Successful"];
+const events = ["Clicked", "Payment", "Successful"];
+
 const Refer = () => {
 	const [email, setEmail] = useState("");
-	const { user, users, activeUsers } = useSelector((state) => state.user);
+	const [trackEmail, setTrackEmail] = useState("");
+	const { user, users, activeUsers, track } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	const copyToClipboard = () => {
@@ -45,15 +48,36 @@ const Refer = () => {
 			)
 			.then(
 				(result) => {
-					// alert("success");
+					toast.success("Mail Sent ✔️");
 					console.log(result.text);
 				},
 				(error) => {
-					console.log(error.text);
+					toast.error("Mail Not Sent");
+					console.log(error);
 					// alert("failure");
 				}
 			);
 	};
+
+	const trackBtn = () => {
+		if (trackEmail) {
+			dispatch(trackUser(trackEmail));
+		} else {
+			toast.error("Please Enter Email");
+		}
+	};
+
+	if (user?.role === "admin") {
+		return (
+			<div className="admin-container">
+				<AdminSidebar />
+				<main className="refers">
+					<Bar />
+					<h2 style={{ color: "red", fontSize: "1.4rem", textAlign: "center" }}>You are not Authorized for visiting this page</h2>
+				</main>
+			</div>
+		);
+	}
 
 	if (user?.verified !== "approved") {
 		return (
@@ -114,9 +138,15 @@ const Refer = () => {
 						<div className="left">
 							<h1>Track Conversion</h1>
 							<div>
-								<input type="email" name="email" id="email" placeholder="Enter Email Address" />
-								<button>
-									Send
+								<input
+									type="email"
+									name="email"
+									id="email"
+									placeholder="Enter Email Address"
+									onChange={(e) => setTrackEmail(e.target.value)}
+								/>
+								<button onClick={trackBtn}>
+									Track
 									<svg width="19" height="18" viewBox="0 0 19 18" fill="" xmlns="http://www.w3.org/2000/svg">
 										<path
 											d="M0.372911 3.67292C0.112911 1.33892 2.51591 -0.375085 4.63891 0.630915L16.5829 6.28892C18.8709 7.37191 18.8709 10.6279 16.5829 11.7109L4.63891 17.3699C2.51591 18.3759 0.113911 16.6619 0.372911 14.3279L0.852911 9.99992H8.97091C9.23613 9.99992 9.49048 9.89456 9.67802 9.70702C9.86555 9.51949 9.97091 9.26513 9.97091 8.99992C9.97091 8.7347 9.86555 8.48035 9.67802 8.29281C9.49048 8.10527 9.23613 7.99992 8.97091 7.99992L0.853911 7.99992L0.372911 3.67292Z"
@@ -128,7 +158,9 @@ const Refer = () => {
 							<div className="timeline">
 								{events.map((e, i) => (
 									<div className="event-items" key={i}>
-										<div className="event">{i + 1}</div>
+										<div className="event" style={track?.step >= i + 1 ? { backgroundColor: "green" } : {}}>
+											{i + 1}
+										</div>
 										<p className="timeline-content">{e}</p>
 									</div>
 								))}
