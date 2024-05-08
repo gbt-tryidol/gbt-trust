@@ -1,5 +1,5 @@
 
-import { AdminSidebar, Bar, Loader, OwnerRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
+import { AdminSidebar, Bar, Loader, OwnerRow, Table, TableBody, TableContainer, TableHeaders, TableHeading, TextLoader } from "../components";
 import Select, { components } from "react-select";
 import { LineChart } from "../components/Chart";
 import { IoIosArrowDown } from "react-icons/io";
@@ -174,15 +174,16 @@ const Profile = () => {
 				<Bar heading="Team" />
 				<section className="team">
 					{isAdmin === "admin" && (
-						<div className="team__header">
+						<div className="team__header" >
 							<Select
+							
 								styles={customStyles}
 								components={{ DropdownIndicator }}
 								options={teamOptions}
 								defaultValue={defaultValue}
 								onChange={hamdleTeamSelect}
 							/>
-							<button className="btn btn-primary">Add New</button>
+							{/* <button className="btn btn-primary">Add New</button> */}
 						</div>
 					)}
 					<div className="team__table">
@@ -199,7 +200,7 @@ const Profile = () => {
 											backgroundColor: "#CACACB",
 										}}
 									/>
-									{loading && <Loader />}
+									{loading && <TextLoader />}
 									{!loading && <TableBody TableRow={OwnerRow} data={team} />}
 								</Table>
 							) : (
@@ -220,10 +221,10 @@ const Profile = () => {
 						<div className="top_performer">
 							<div className="heading">Top Performers</div>
 							<div className="table-performer">
-								{loading ? <Loader /> : memoizedPerformers}
+								{loading ? <TextLoader /> : memoizedPerformers}
 							</div>
 						</div>
-						<div className="group_performance">
+						{/* <div className="group_performance">
 							<h1>Group Performace</h1>
 							<LineChart
 								backgroundColor="#90A9C3"
@@ -231,7 +232,7 @@ const Profile = () => {
 								data={[12, 23, 23, 564, 342, 243, 3, 556, 34, 76, 32, 345]}
 								labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
 							/>
-						</div>
+						</div> */}
 					</div>
 				</section>
 			</main>

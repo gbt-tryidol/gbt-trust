@@ -207,6 +207,10 @@ const Dashboard = () => {
 	const [todaysJoining, setTodaysJoining] = useState([]);
 	const dispatch = useDispatch();
 
+	const refreshPage = () => {
+		window.location.reload();
+	}
+
 	useEffect(() => {
 		const token = Cookies.get("token");
 		if (token) {
@@ -231,7 +235,6 @@ const Dashboard = () => {
 
 					// Check if the current date is between event start and end date
 					const isOngoing = currentDate >= eventStartDate && currentDate <= eventEndDate;
-
 					// If the event is ongoing, include it in the data
 					if (isOngoing) {
 						const date = eventStartDate.toLocaleDateString();
@@ -245,7 +248,6 @@ const Dashboard = () => {
 				})
 				// Filter out null values (events that are not ongoing)
 				.filter((event) => event !== null);
-
 			setOngoingEventData(data);
 		}
 	}, [events]);
@@ -409,7 +411,7 @@ const Dashboard = () => {
 							<TableHeading>
 								<p>Today&apos;s Joining</p>
 								<p>
-									<MdRefresh /> <BsThreeDotsVertical />
+									<MdRefresh style={{ cursor: "pointer" }} onClick={refreshPage} /> <BsThreeDotsVertical />
 								</p>
 							</TableHeading>
 							<Table>
@@ -481,7 +483,8 @@ const Dashboard = () => {
 
 				{/* LEVELS SECTION TABLE */}
 				{user?.role === "admin" ? (
-					<section className="dashboard-chart">
+					<>
+					{/* <section className="dashboard-chart">
 						<div className="chart-header">
 							<h2>Revenue Collected</h2>
 							<Select
@@ -492,7 +495,6 @@ const Dashboard = () => {
 								styles={customStyles}
 							/>
 						</div>
-						{/* TODO: implement this revenue chart */}
 						<LineChart
 							option={option}
 							backgroundColor="#ead3d0"
@@ -511,7 +513,8 @@ const Dashboard = () => {
 								</h4>
 							</div>
 						</div>
-					</section>
+					</section> */}
+					</>
 				) : (
 					<section className="levels">
 						<TableContainer className="dashboardOngoingEventTableContainer">
