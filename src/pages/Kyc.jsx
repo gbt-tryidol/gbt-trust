@@ -1,4 +1,4 @@
-
+/* eslint-disable react/prop-types */
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, KYCRow, Loader } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -21,7 +21,6 @@ function Kyc() {
 	const { message, error, loading } = useSelector((state) => state.update);
 	const [usersdata, setUsersdata] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [userQuery, setUserQuery] = useState("");
 	const [selectedSortOption] = useState(kycSortOptions[0]); // Default to first sorting option
 	const [todaysJoining, setTodaysJoining] = useState([]);
 	const [selectedUser, setSelectedUser] = useState();
@@ -58,6 +57,7 @@ function Kyc() {
 			toast.info("user is rejected");
 			return;
 		}
+		// console.log(user.user.plan);
 		setSelectedUser(user.user);
 	};
 
@@ -153,7 +153,7 @@ function Kyc() {
 
 							<div className="body">
 								<div className="content">
-									{selectedUser.status === "premium" ? (
+									{selectedUser?.plan === "premium" ? (
 										<div className="fees">
 											<h1>₹</h1>
 											<p>Registration Fees : 580.00 Rs</p>
@@ -218,7 +218,6 @@ function Kyc() {
 }
 
 export default Kyc;
-
 
 export const CardWidget = ({ heading, Icon, Action, value, style }) => {
 	return (
