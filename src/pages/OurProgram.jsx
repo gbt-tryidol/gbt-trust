@@ -201,7 +201,7 @@ function OurProgram() {
 
 export default OurProgram;
 
-export const CardWidget = ({ heading, Icon, Action, value, style }) => {
+export const CardWidget = ({ heading, Icon, value, style }) => {
 	return (
 		<article className="pinCard" style={style}>
 			<Icon />
@@ -209,7 +209,6 @@ export const CardWidget = ({ heading, Icon, Action, value, style }) => {
 				<h3>{heading}</h3>
 				{value && <p>{value}</p>}
 			</div>
-			<Action />
 		</article>
 	);
 };

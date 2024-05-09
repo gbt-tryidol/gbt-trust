@@ -1,4 +1,3 @@
-
 import AdminSidebar from "../components/AdminSidebar";
 import { Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, UserTransactionRow, AdminTransactionRow, Transfer } from "../components";
 import Select, { components } from "react-select";
@@ -7,7 +6,6 @@ import { CUSTOME_STYLES } from "../assets/data/constants";
 import { IoIosArrowForward } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
-
 import { bankTransferHeaders, bankTransferSortOptions } from "../assets/data/owner";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -165,7 +163,7 @@ function BankTransfer() {
 
 export default BankTransfer;
 
-export const CardWidget = ({ heading, Icon, Action, value, style }) => {
+export const CardWidget = ({ heading, Icon, value, style }) => {
 	return (
 		<article className="pinCard" style={style}>
 			<Icon />
@@ -173,7 +171,6 @@ export const CardWidget = ({ heading, Icon, Action, value, style }) => {
 				<h3>{heading}</h3>
 				{value && <p>{value}</p>}
 			</div>
-			<Action />
 		</article>
 	);
 };

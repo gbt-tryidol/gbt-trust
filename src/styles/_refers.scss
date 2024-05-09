@@ -46,36 +46,30 @@
 		}
 	}
 
-	> .TractContainer {
+	.TractContainer {
 		@include flex(row, space-around, stretch, 1rem);
 		flex-wrap: wrap;
-		padding: 1rem 2rem;
+		padding: 1rem;
 		> div {
+			width: 100%;
 			border-radius: 8px;
 			// height: 40vh;
 			height: fit-content;
 			padding: 1rem 0;
 			border: 2px solid $secondaryColor;
 		}
-		> div:first-child {
-			width: clamp(300px, 40%, 860px);
-			padding: 2rem 0;
-			> h1 {
-				font-size: 1.3rem;
-				margin-left: 1rem;
-			}
-		}
 		> div:last-child {
-			width: clamp(450px, 58%, 860px);
+			width: 100%;
 		}
 	}
 
 	.trackConversion {
+		width: 100%;
 		.left {
 			width: 100%;
 			padding: 1rem 2rem;
 			@include flex(column, space-between, center);
-			> div {
+			div{
 				width: 100%;
 				@include flex(row, space-between, center);
 				> input {

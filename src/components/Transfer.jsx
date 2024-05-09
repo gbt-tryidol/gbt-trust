@@ -115,10 +115,6 @@ const Transfer = () => {
 		<section className="wallet-transfer">
 			<div className="heading">
 				<p>Wallet Transfer Request</p>
-				<button>
-					<FaSearch />
-					<input type="text" placeholder="Search..." />
-				</button>
 			</div>
 			<div className="body">
 				<h3>Bank Details</h3>

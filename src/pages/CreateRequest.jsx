@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Bar, AdminSidebar, Loader, RequestRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
+import { Bar, AdminSidebar, TextLoader, RequestRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
 import Select, { components } from "react-select";
 import { toast } from "react-toastify";
 
@@ -13,9 +13,9 @@ import { getAllEvents, requestEvent, getBankDetails } from "../redux/actions/ind
 const vehicleHeaders = ["Request Date", "Event Name", "Budget", "Status"];
 
 const analyticsFilterOptions = [
-	{ value: "", label: "Select Status" },
-	{ value: "approved", label: "Approved" },
-	{ value: "notapproved", label: "Not Approved" },
+	{ value: "", label: "Select Account Type" },
+	{ value: "current", label: "current" },
+	{ value: "saving", label: "saving" },
 ];
 
 const customStyles = {
@@ -318,7 +318,7 @@ const CreateRequest = ({ query, handleSearch }) => {
 									}}
 									headers={vehicleHeaders}
 								/>
-								{loading && <Loader />}
+								{loading && <TextLoader />}
 								{!loading && <TableBody TableRow={RequestRow} data={eventdata} />}
 							</Table>
 						</TableContainer>
