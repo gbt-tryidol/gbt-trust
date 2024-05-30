@@ -116,14 +116,6 @@ const Refer = () => {
 								Send <IoSend />
 							</button>
 						</div>
-						<div>
-							<h4>We will Include this message from your mail</h4>
-							<p>
-								I hope this email finds you well. We are excited to extend an invitation to you for [provide details about the
-								event/program/platform].
-							</p>
-						</div>
-						<button onClick={sendMail}>Compose</button>
 					</div>
 					<div className="myRefferalLink">
 						<h3>My Refferal Link</h3>

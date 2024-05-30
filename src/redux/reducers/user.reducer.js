@@ -14,7 +14,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.message = action.payload.message;
 			state.isAuthenticated = true;
 		})
-		.addCase("GENERATE_RESET_TOKEN_FAILURE", (state, action) => {
+		.addCase("GENERATE_RESET_TOKEN_FAILURE", (state) => {
 			state.loading = false;
 			state.error = "Invalid Credentials";
 			state.isAuthenticated = false;
@@ -40,7 +40,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.message = action.payload.message;
 			state.isAuthenticated = true;
 		})
-		.addCase("FORGOT_PASSWORD_FAILURE", (state, action) => {
+		.addCase("FORGOT_PASSWORD_FAILURE", (state) => {
 			state.loading = false;
 			state.error = "Invalid Credentials";
 			state.isAuthenticated = false;
@@ -55,7 +55,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.message = action.payload.message;
 			state.isAuthenticated = true;
 		})
-		.addCase("GET_LOGIN_FAILURE", (state, action) => {
+		.addCase("GET_LOGIN_FAILURE", (state) => {
 			state.loading = false;
 			state.error = "Invalid Credentials";
 			state.isAuthenticated = false;
@@ -92,10 +92,10 @@ export const userReducer = createReducer(initialState, (builder) => {
 		.addCase("ADD_REFERRAL_REQUEST", (state) => {
 			state.loading = true;
 		})
-		.addCase("ADD_REFERRAL_SUCCESS", (state, action) => {
+		.addCase("ADD_REFERRAL_SUCCESS", (state) => {
 			state.loading = false;
 		})
-		.addCase("ADD_REFERRAL_FAILURE", (state, action) => {
+		.addCase("ADD_REFERRAL_FAILURE", (state) => {
 			state.loading = false;
 		})
 		.addCase("GET_LOGOUT_REQUEST", (state) => {
@@ -122,7 +122,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.user = action.payload;
 			state.isAuthenticated = true;
 		})
-		.addCase("LOAD_USER_FAILURE", (state, action) => {
+		.addCase("LOAD_USER_FAILURE", (state) => {
 			state.loading = false;
 			state.isAuthenticated = false;
 		})
@@ -133,7 +133,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.users = action.payload;
 		})
-		.addCase("GET_ALL_USERS_FAILURE", (state, action) => {
+		.addCase("GET_ALL_USERS_FAILURE", (state) => {
 			state.loading = false;
 		})
 		.addCase("GET_ACTIVE_USERS_REQUEST", (state) => {
@@ -143,7 +143,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.activeUsers = action.payload;
 		})
-		.addCase("GET_ACTIVE_USERS_FAILURE", (state, action) => {
+		.addCase("GET_ACTIVE_USERS_FAILURE", (state) => {
 			state.loading = false;
 		})
 		.addCase("MAIL_REQUEST", (state) => {
@@ -168,7 +168,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 		.addCase("GENERATE_REFERAL_LINK_REQUEST", (state) => {
 			state.loading = true;
 		})
-		.addCase("GENERATE_REFERAL_LINK_SUCCESS", (state, action) => {
+		.addCase("GENERATE_REFERAL_LINK_SUCCESS", (state) => {
 			state.loading = false;
 		})
 		.addCase("GENERATE_REFERAL_LINK_FAILURE", (state) => {
@@ -177,7 +177,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 		.addCase("SEND_REFERRAL_MAIL_REQUEST", (state) => {
 			state.loading = true;
 		})
-		.addCase("SEND_REFERRAL_MAIL_SUCCESS", (state, action) => {
+		.addCase("SEND_REFERRAL_MAIL_SUCCESS", (state) => {
 			state.loading = false;
 			state.message = "Mail Sent";
 		})
@@ -187,7 +187,7 @@ export const userReducer = createReducer(initialState, (builder) => {
 		.addCase("SEND_REGISTRATION_MAIL_REQUEST", (state) => {
 			state.loading = true;
 		})
-		.addCase("SEND_REGISTRATION_MAIL_SUCCESS", (state, action) => {
+		.addCase("SEND_REGISTRATION_MAIL_SUCCESS", (state) => {
 			state.loading = false;
 		})
 		.addCase("SEND_REGISTRATION_MAIL_FAILURE", (state) => {
@@ -214,12 +214,26 @@ export const updateReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.error = action.payload;
 		})
+		.addCase("CALCULATE_REFERRAL_REQUEST", (state) => {
+			state.loading = true;
+		})
+		.addCase("CALCULATE_REFERRAL_SUCCESS", (state, action) => {
+			state.loading = false;
+			// state.message = action.payload.message;
+			state.referralAmount = action.payload.referralAmount;
+		})
+		.addCase("CALCULATE_REFERRAL_FAILURE", (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		})
 		.addCase("VERIFY_USER_REQUEST", (state) => {
 			state.loading = true;
 		})
 		.addCase("VERIFY_USER_SUCCESS", (state, action) => {
 			state.loading = false;
-			state.message = action.payload;
+			state.message = action.payload.message;
+			state.referralCode = action.payload.referralCode;
+			state.userid = action.payload.userid;
 		})
 		.addCase("VERIFY_USER_FAILURE", (state, action) => {
 			state.loading = false;
@@ -242,7 +256,7 @@ export const treeReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.tree = action.payload.tree;
 		})
-		.addCase("GENERATE_TREE_FAILURE", (state, action) => {
+		.addCase("GENERATE_TREE_FAILURE", (state) => {
 			state.loading = false;
 			state.tree = [];
 		})

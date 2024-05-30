@@ -2,7 +2,7 @@
 import { AdminSidebar, Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, KYCRow, Loader } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllUsers, verifyUser } from "../redux/actions/index";
+import { addReferral, getAllUsers, verifyUser } from "../redux/actions/index";
 import { toast } from "react-toastify";
 import { MdRefresh } from "react-icons/md";
 
@@ -17,8 +17,8 @@ const kycSortOptions = [
 const kycHeaders = ["User Id", "First Name", "Last Name", "Contact Number", "Email Id", "Verification Status"];
 
 function Kyc() {
-	const { users, loading: userLoading } = useSelector((state) => state.user);
-	const { message, error, loading } = useSelector((state) => state.update);
+	const { message: usermsg, error: usererr, users, loading: userLoading } = useSelector((state) => state.user);
+	const { message, error, loading, referralCode, userid } = useSelector((state) => state.update);
 	const [usersdata, setUsersdata] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selectedSortOption] = useState(kycSortOptions[0]); // Default to first sorting option
@@ -63,7 +63,14 @@ function Kyc() {
 
 	const refreshPage = () => {
 		window.location.reload();
-	}
+	};
+
+	useEffect(() => {
+		if (referralCode && userid) {
+			// alert(referralCode);
+			dispatch(addReferral(referralCode, userid));
+		}
+	}, [dispatch, referralCode, userid]);
 
 	useEffect(() => {
 		if (users && users.length > 0) {
@@ -124,11 +131,19 @@ function Kyc() {
 			setSelectedUser(null);
 			dispatch({ type: "CLEAR_MESSAGES" });
 		}
+		if (usermsg) {
+			toast.success(usermsg);
+			dispatch({ type: "CLEAR_MESSAGES" });
+		}
+		if (usererr) {
+			toast.error(usererr);
+			dispatch({ type: "CLEAR_ERRORS" });
+		}
 		if (error) {
 			toast.error(error);
 			dispatch({ type: "CLEAR_ERRORS" });
 		}
-	}, [message, error, dispatch]);
+	}, [message, error, dispatch, usermsg, usererr]);
 
 	if (loading) {
 		return <Loader />;
@@ -177,13 +192,13 @@ function Kyc() {
 								</div>
 
 								<div className="footer">
-									<button
+									{/* <button
 										onClick={() => {
 											userVerifyHandler(selectedUser._id, false);
 										}}
 									>
 										Decline
-									</button>
+									</button> */}
 									<button
 										onClick={() => {
 											userVerifyHandler(selectedUser._id, true);
@@ -198,7 +213,10 @@ function Kyc() {
 					<TableContainer className="kycTable">
 						<TableHeading>
 							<p>Registration List</p>
-							<MdRefresh style={{marginLeft:"auto",marginRight:"1rem",color:"#fcfcfc",fontSize:"1.7rem",cursor:"pointer"}} onClick={refreshPage} />
+							<MdRefresh
+								style={{ marginLeft: "auto", marginRight: "1rem", color: "#fcfcfc", fontSize: "1.7rem", cursor: "pointer" }}
+								onClick={refreshPage}
+							/>
 							<input type="text" placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 						</TableHeading>
 						<Table>

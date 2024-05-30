@@ -1,6 +1,17 @@
-
+/* eslint-disable react/prop-types */
 import AdminSidebar from "../components/AdminSidebar";
-import { Bar, TableBody, Table, TableContainer, TableHeaders, TableHeading, UserTransactionRow, AdminTransactionRow, Transfer } from "../components";
+import {
+	Bar,
+	TableBody,
+	Table,
+	TableContainer,
+	TableHeaders,
+	TableHeading,
+	UserTransactionRow,
+	AdminTransactionRow,
+	Transfer,
+	Loader,
+} from "../components";
 import Select, { components } from "react-select";
 import { FaRupeeSign, FaWallet, FaSort } from "react-icons/fa";
 import { CUSTOME_STYLES } from "../assets/data/constants";
@@ -12,6 +23,8 @@ import { bankTransferHeaders, bankTransferSortOptions } from "../assets/data/own
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTransferRequest, getTransferRequestById, getBankDetails } from "../redux/actions/index";
+import { calculateReferral } from "../redux/actions/user.action";
+import { toast } from "react-toastify";
 
 const DropdownIndicator = (props) => {
 	return (
@@ -23,6 +36,7 @@ const DropdownIndicator = (props) => {
 
 function BankTransfer() {
 	const { user } = useSelector((state) => state.user);
+	const { message, error, loading, referralAmount } = useSelector((state) => state.update);
 	const { transfers, allTransfers } = useSelector((state) => state.transfer);
 	const [transferRequests, setTransferRequests] = useState([]);
 	const [alltransferRequests, setAllTransferRequests] = useState([]);
@@ -68,8 +82,24 @@ function BankTransfer() {
 			dispatch(getBankDetails(user._id));
 			dispatch(getTransferRequestById());
 			dispatch(getAllTransferRequest());
+			dispatch(calculateReferral(user._id));
 		}
-	}, [user]);
+	}, [dispatch, user]);
+
+	useEffect(() => {
+		if (message) {
+			toast.success(message);
+			dispatch({ type: "CLEAR_MESSAGES" });
+		}
+		if (error) {
+			toast.error(error);
+			dispatch({ type: "CLEAR_ERRORS" });
+		}
+	}, [message, error, dispatch]);
+
+	if (loading) {
+		return <Loader />;
+	}
 
 	return (
 		<div className="admin-container">
@@ -77,12 +107,10 @@ function BankTransfer() {
 			<main className="bankTransfer">
 				<Bar heading="Transfer" />
 				<div className="cardWidget">
-					<CardWidget heading="Total Balance" value={user?.balance} Icon={FaRupeeSign} Action={IoIosArrowForward} />
-					<CardWidget heading="Deposits" value={0} Icon={FaRupeeSign} Action={IoIosArrowForward} />
-					<CardWidget style={{ backgroundColor: "#003D79" }} heading="Transfer Amount" Icon={RiBankFill} Action={IoIosArrowForward} />
+					<CardWidget heading="Total Balance" value={referralAmount ? referralAmount : 0} Icon={FaRupeeSign} />
+					<CardWidget heading="Deposits" value={0} Icon={FaRupeeSign} />
+					<CardWidget style={{ backgroundColor: "#003D79" }} heading="Transfer Amount" Icon={RiBankFill} />
 				</div>
-
-
 				{user?.role === "user" ? (
 					<div className="wallet-pin-container">
 						<section className="my-wallet">
@@ -92,7 +120,7 @@ function BankTransfer() {
 								<BsThreeDots />
 							</div>
 							<div className="wallet-amount">
-								<h1> ₹ {user?.balance}</h1>
+								<h1> ₹ {referralAmount ? referralAmount : 0}</h1>
 							</div>
 
 							<div className="wallet-buttons">
@@ -104,13 +132,10 @@ function BankTransfer() {
 						</section>
 						<div className="top_performer">
 							<div className="heading">Withdrawal Request</div>
-							<div className="table-performer">
-								
-							</div>
+							<div className="table-performer"></div>
 						</div>
 					</div>
 				) : null}
-
 
 				{user?.role === "user" ? <Transfer /> : null}
 
@@ -165,7 +190,7 @@ function BankTransfer() {
 
 export default BankTransfer;
 
-export const CardWidget = ({ heading, Icon, Action, value, style }) => {
+export const CardWidget = ({ heading, Icon, value, style }) => {
 	return (
 		<article className="pinCard" style={style}>
 			<Icon />
@@ -173,7 +198,6 @@ export const CardWidget = ({ heading, Icon, Action, value, style }) => {
 				<h3>{heading}</h3>
 				{value && <p>{value}</p>}
 			</div>
-			<Action />
 		</article>
 	);
 };

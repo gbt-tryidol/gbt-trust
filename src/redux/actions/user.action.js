@@ -1,6 +1,5 @@
 // import axios from "../utils/axios.js";
 import axios from "axios";
-import { config } from "dotenv";
 import Cookies from "js-cookie";
 
 // const URI = "https://gbt-trust-backend.onrender.com/api/v1/user";
@@ -169,7 +168,7 @@ export const generateReferalLink = () => async (dispatch) => {
 	}
 };
 
-export const addReferral = (code) => async (dispatch) => {
+export const updateTrack = (code) => async (dispatch) => {
 	try {
 		dispatch({
 			type: "ADD_REFERRAL_REQUEST",
@@ -183,10 +182,9 @@ export const addReferral = (code) => async (dispatch) => {
 			},
 		};
 
-		const { data } = await axios.get(`${URI}/referral/generated-link/:referralCode=${code}`, config);
+		const { data } = await axios.get(`${URI}/track/generated-link/:referralCode=${code}`, config);
 		const payload = {
 			user: data.data.user,
-			// message: data.message,
 			referralCode: data.data.referralCode,
 		};
 
@@ -198,6 +196,76 @@ export const addReferral = (code) => async (dispatch) => {
 		console.log(error);
 		dispatch({
 			type: "ADD_REFERRAL_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
+export const addReferral = (code, userid) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "ADD_REFERRAL_REQUEST",
+		});
+
+		const token = Cookies.get("token"); // Get the token from the cookie
+		// eslint-disable-next-line no-unused-vars
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+			},
+		};
+		// alert("hiibye");
+
+		const { data } = await axios.get(`${URI}/referral/generated-link/:referralCode=${code}?userid=${userid}`, config);
+		console.log(data);
+		const payload = {
+			user: data.data.user,
+			// referralCode: data.data.referralCode,
+		};
+
+		dispatch({
+			type: "ADD_REFERRAL_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "ADD_REFERRAL_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
+export const calculateReferral = (id) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "CALCULATE_REFERRAL_REQUEST",
+		});
+
+		const token = Cookies.get("token"); // Get the token from the cookie
+		// eslint-disable-next-line no-unused-vars
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+			},
+		};
+		// alert("hiibye");
+
+		const { data } = await axios.get(`${URI}/calculate/referral?userid=${id}`, config);
+		console.log(data);
+		const payload = {
+			message: data.message,
+			referralAmount: data.data,
+		};
+
+		dispatch({
+			type: "CALCULATE_REFERRAL_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "CALCULATE_REFERRAL_FAILURE",
 			payload: error.response.data.message,
 		});
 	}
@@ -361,10 +429,13 @@ export const verifyUser = (id, status) => async (dispatch) => {
 
 		// eslint-disable-next-line no-unused-vars
 		const { data } = await axios.post(`${URI}/verify/user?id=${id}`, { status }, config);
-
 		dispatch({
 			type: "VERIFY_USER_SUCCESS",
-			payload: data.message,
+			payload: {
+				message: data.message,
+				referralCode: data.data.referralCode,
+				userid: data.data.userid,
+			},
 		});
 	} catch (error) {
 		console.log(error);

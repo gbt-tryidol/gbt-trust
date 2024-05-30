@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addReferral } from "../redux/actions";
 import { loadUser } from "../redux/actions";
+import { updateTrack } from "../redux/actions/user.action";
 
 const Payment = () => {
 	const [Razorpay] = useRazorpay();
@@ -79,11 +80,12 @@ const Payment = () => {
 						.then((res) => {
 							console.log(res);
 							toast.success("payment done");
-							dispatch(addReferral(user?.track?.code));
+							dispatch(updateTrack(user?.track?.code));
 							emailjs.send("gbt", "template_vcm5glx", { email_to: user.email, name_to: user.name }, "1DqRXIf7r7ATgeDMQ").then(
 								(result) => {
 									// alert("success");
 									console.log(result.text);
+									navigate("/dashboard");
 								},
 								(error) => {
 									console.log(error.text);

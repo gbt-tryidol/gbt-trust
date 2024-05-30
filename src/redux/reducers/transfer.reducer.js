@@ -11,7 +11,7 @@ export const transferReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.allTransfers = action.payload.transfers;
 		})
-		.addCase("GET_ALL_TRANSFER_REQUEST_FAILURE", (state, action) => {
+		.addCase("GET_ALL_TRANSFER_REQUEST_FAILURE", (state) => {
 			state.loading = false;
 			state.alltransfers = null;
 		})
@@ -22,7 +22,7 @@ export const transferReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.transfers = action.payload.transfers;
 		})
-		.addCase("GET_TRANSFER_REQUEST_BY_ID_FAILURE", (state, action) => {
+		.addCase("GET_TRANSFER_REQUEST_BY_ID_FAILURE", (state) => {
 			state.loading = false;
 			state.transfers = null;
 		})
@@ -33,7 +33,7 @@ export const transferReducer = createReducer(initialState, (builder) => {
 			state.loading = false;
 			state.transfer = action.payload.transfer;
 		})
-		.addCase("GET_SINGLE_TRANSFER_FAILURE", (state, action) => {
+		.addCase("GET_SINGLE_TRANSFER_FAILURE", (state) => {
 			state.loading = false;
 			state.transfer = null;
 		})
