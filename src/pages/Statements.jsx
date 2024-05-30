@@ -113,7 +113,7 @@ const Statements = () => {
 				<Bar heading="Statements" />
 				<section className="statements">
 					{isAdmin === "admin" ? (
-						<div className="statement-chart">
+						/*<div className="statement-chart">
 							<div className="heading">
 								<h2>Worth Analysis</h2>
 								<Select
@@ -140,7 +140,8 @@ const Statements = () => {
 									₹ <span>Transactions:</span> 213929.00
 								</h1>
 							</div>
-						</div>
+					</div>*/
+					null
 					) : (
 						<>
 							<section className="generate-statement-container">
@@ -173,7 +174,7 @@ const Statements = () => {
 									</div>
 								</div>
 
-								<div className="total-transaction">
+								{/* <div className="total-transaction">
 									<h1>Total Transaction</h1>
 									<LineChart
 										backgroundColor="transparent"
@@ -181,7 +182,7 @@ const Statements = () => {
 										data={[12, 23, 23, 564, 342, 243, 3, 556, 34, 76, 32, 345]}
 										labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
 									/>
-								</div>
+								</div> */}
 							</section>
 						</>
 					)}

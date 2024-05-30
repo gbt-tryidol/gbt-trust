@@ -1,4 +1,6 @@
+
 /* eslint-disable react/prop-types */
+
 import AdminSidebar from "../components/AdminSidebar";
 import {
 	Bar,
@@ -18,7 +20,6 @@ import { CUSTOME_STYLES } from "../assets/data/constants";
 import { IoIosArrowForward } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
-
 import { bankTransferHeaders, bankTransferSortOptions } from "../assets/data/owner";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

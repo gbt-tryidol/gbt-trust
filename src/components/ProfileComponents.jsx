@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Select, { components } from "react-select";
 import { loadUser, updateProfile } from "../redux/actions/index";
 import { useEffect, useState } from "react";
+import Files from "react-files";
+
 
 const accountTypeOptions = [
 	{ value: "", label: "Select Account Type" },
@@ -93,6 +95,8 @@ export function ProfileComponents() {
 			};
 		});
 	};
+
+	
 
 	const profileHandler = (e) => {
 		e.preventDefault();
@@ -300,10 +304,9 @@ export function SettingsComponent() {
 	const { user } = useSelector((state) => state.user);
 
 	const [profile, setProfile] = useState({
-		firstName: "",
-		lastName: "",
-		gender: "",
-		dob: user?.dob ? user?.dob : "",
+		avatar:"",
+		aadharCard: "",
+		panCard: "",
 	});
 	const dispatch = useDispatch();
 
@@ -328,52 +331,110 @@ export function SettingsComponent() {
 		});
 	};
 
-	const profileHandler = (e) => {
-		e.preventDefault();
-		dispatch(updateProfile(profile));
-		// dispatch(loadUser());
+	const [aadharFileName, setAadharFileName] = useState("");
+	const [panFileName, setPanFileName] = useState("");
+	const [avatarFileName, setAvatarFileName] = useState("");
+
+
+
+	const handleError = (error) => {
+		console.log("error code " + error.code + ": " + error.message);
 	};
 
-	useEffect(() => {
-		setProfile((prev) => ({
+	const profileHandler = (e) => {
+		e.preventDefault();
+		alert("submitted")
+		console.log(profile)
+		// dispatch(updateProfile(profile));
+	};
+
+	const onAvatarChange = (files) => {
+		setAvatarFileName(files[0].name);
+		setProfile(prev=>({
 			...prev,
-			firstName: user?.firstName,
-			lastName: user?.lastName,
-			gender: user?.gender,
-			dob: user?.dob,
-		}));
-	}, [user]);
+			avatar:files[0]
+		}))
+	};
+	const onAadharChange = (files) => {
+		setAadharFileName(files[0].name);
+		setProfile(prev=>({
+			...prev,
+			aadharCard:files[0]
+		}))
+	};
+	const onPanChange = (files) => {
+		setPanFileName(files[0].name);
+		setProfile(prev=>({
+			...prev,
+			panCard:files[0]
+		}))
+	};
 
 	return (
 		<>
 			<form onSubmit={profileHandler}>
-				<div>
-					<label htmlFor="firstName">First Name</label>
-					<input type="text" id="firstName" placeholder="First Name" name="firstName" value={profile.firstName} onChange={onInputChange} />
-				</div>
+			<div className="single-file">
+								<label htmlFor="files-dropzone">Upload Your PAN</label>
+								<div className="file">
+									<Files
+										className="files-dropzone"
+										onChange={(files) => onAvatarChange(files)}
+										onError={handleError}
+										accepts={["image/png", "image/jpeg", "image/jpg"]}
+										multiple
+										maxFileSize={10000000}
+										minFileSize={0}
+										clickable
+										name="pan"
+										id="pan"
+									>
+										Upload
+									</Files>
+								</div>
+								{avatarFileName ? <p>{avatarFileName}</p> : null}
+							</div>
 
-				<div>
-					<label htmlFor="lastName">Last Name</label>
-					<input type="text" id="lastName" placeholder="Last Name" name="lastName" value={profile.lastName} onChange={onInputChange} />
-				</div>
+							<div className="single-file">
+								<label htmlFor="files-dropzone">Upload Your PAN</label>
+								<div className="file">
+									<Files
+										className="files-dropzone"
+										onChange={(files) => onAadharChange(files)}
+										onError={handleError}
+										accepts={["image/png", "image/jpeg", "image/jpg"]}
+										multiple
+										maxFileSize={10000000}
+										minFileSize={0}
+										clickable
+										name="pan"
+										id="pan"
+									>
+										Upload
+									</Files>
+								</div>
+								{aadharFileName ? <p>{aadharFileName}</p> : null}
+							</div>
 
-				<div>
-					<label htmlFor="gender">Gender {profile.gender}</label>
-					<Select
-						styles={customStyles}
-						components={{ DropdownIndicator }}
-						options={genderTypeOptions}
-						defaultInputValue={user?.gender}
-						value={profile?.gender === "female" ? { value: "female", label: "Female" } : { value: "male", label: "Male" }}
-						onChange={onSelectChange}
-						name="gender"
-					/>
-				</div>
-
-				<div>
-					<label htmlFor="dob">DOB</label>
-					<input type="date" id="dob" name="dob" value={profile.dob} onChange={onInputChange} />
-				</div>
+							<div className="single-file">
+								<label htmlFor="files-dropzone">Upload Your PAN</label>
+								<div className="file">
+									<Files
+										className="files-dropzone"
+										onChange={(files) => onPanChange(files)}
+										onError={handleError}
+										accepts={["image/png", "image/jpeg", "image/jpg"]}
+										multiple
+										maxFileSize={10000000}
+										minFileSize={0}
+										clickable
+										name="pan"
+										id="pan"
+									>
+										Upload
+									</Files>
+								</div>
+								{panFileName ? <p>{panFileName}</p> : null}
+							</div>
 				<button type="submit">Update</button>
 			</form>
 		</>

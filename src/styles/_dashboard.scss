@@ -23,9 +23,9 @@
 			background-color: $secondaryColor;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.132);
 			padding: 0 0.5rem;
-			@include flex(column, flex-start, unset, 0.4rem);
+			@include flex(column, center, center, 0.4rem);
 			> div:nth-child(1) {
-				@include flex(row, flex-start, center, 0.5rem);
+				@include flex(row, unset, center, 2rem);
 				width: 100%;
 				padding: 0.5rem 0.2rem;
 				> i {
@@ -35,9 +35,6 @@
 					> svg {
 						font-size: 2rem;
 					}
-				}
-				> h4 {
-					margin-right: auto;
 				}
 				> p {
 					font-size: 1.1rem;
@@ -49,7 +46,6 @@
 			}
 			> h2 {
 				font-size: 2.5rem;
-				margin-left: 2.7rem;
 				text-align: start;
 			}
 			> h5 {

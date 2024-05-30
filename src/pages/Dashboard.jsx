@@ -425,36 +425,36 @@ const Dashboard = () => {
 								<TableBody TableRow={DashboardRow} data={todaysJoining} />
 							</Table>
 						</TableContainer>
-						{/* {Table()} */}
 					</section>
 				) : (
-					<section className="dashboard-chart">
-						<div className="chart-header">
-							<h2>Revenue Collected</h2>
-							<Select
-								className="filter"
-								defaultValue={RevenueCollectedOptions[0]}
-								options={RevenueCollectedOptions}
-								components={{ DropdownIndicator }}
-								styles={customStyles}
-							/>
-						</div>
-						<BarChart
-							data_1={[54, 566, 75, 145, 455, 65, 455, 120, 319, 100, 200, 600]}
-							labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
-						/>
-						<div className="chart-footer">
-							<div className="left-footer">
-								<div className="circ"></div>
-								<span>Profit</span>
-							</div>
-							<div className="right-footer">
-								<h4>
-									&#8377; Income : <span>{user?.referralIncome}</span>
-								</h4>
-							</div>
-						</div>
-					</section>
+					// <section className="dashboard-chart">
+					// 	<div className="chart-header">
+					// 		<h2>Revenue Collected</h2>
+					// 		<Select
+					// 			className="filter"
+					// 			defaultValue={RevenueCollectedOptions[0]}
+					// 			options={RevenueCollectedOptions}
+					// 			components={{ DropdownIndicator }}
+					// 			styles={customStyles}
+					// 		/>
+					// 	</div>
+					// 	<BarChart
+					// 		data_1={[54, 566, 75, 145, 455, 65, 455, 120, 319, 100, 200, 600]}
+					// 		labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
+					// 	/>
+					// 	<div className="chart-footer">
+					// 		<div className="left-footer">
+					// 			<div className="circ"></div>
+					// 			<span>Profit</span>
+					// 		</div>
+					// 		<div className="right-footer">
+					// 			<h4>
+					// 				&#8377; Income : <span>{user?.referralIncome}</span>
+					// 			</h4>
+					// 		</div>
+					// 	</div>
+					// </section>
+					null
 				)}
 
 				{/* ONGOING EVENT TABLE */}
@@ -549,9 +549,6 @@ const WidgetItem = ({ heading, value, path }) => (
 				</svg>
 			</i>
 			<h4>{heading}</h4>
-			<p>
-				<MdKeyboardArrowDown />{" "}
-			</p>
 		</div>
 		<h2>{Math.abs(value)}</h2>
 	</article>
