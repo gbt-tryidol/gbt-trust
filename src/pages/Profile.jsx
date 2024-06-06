@@ -5,9 +5,36 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getTeam, loadUser } from "../redux/actions";
+import { calculateLevel } from "../redux/actions/user.action";
+
+const levelMap = {
+	0: "JOINING",
+	1: "JOINING",
+	2: "JOINING",
+	3: "JOINING",
+	4: "JOINING",
+	5: "JOINING",
+	6: "JOINING",
+	7: "JOINING",
+	8: "JOINING",
+	9: "JOINING",
+	10: "SILVER",
+	11: "GOLD",
+	12: "STARGOLD",
+	13: "PLATINUM",
+	14: "EMRALD",
+	15: "RUBI",
+	16: "DIAMOND",
+	17: "DOUBLE DIAMOND",
+	18: "STAR DIAMOND",
+	19: "CROWN",
+	20: "STAR CROWN",
+	21: "DOUBLE CROWN",
+};
 
 const Profile = () => {
 	const { user, loading } = useSelector((state) => state.user);
+	const { level } = useSelector((state) => state.update);
 	const { teams } = useSelector((state) => state.team);
 	const dispatch = useDispatch();
 
@@ -16,6 +43,7 @@ const Profile = () => {
 	useEffect(() => {
 		dispatch(loadUser());
 		dispatch(getTeam());
+		dispatch(calculateLevel());
 	}, [dispatch]);
 
 	// const [isAdmin, setIsAdmin] = useState("admin");
@@ -57,69 +85,6 @@ const Profile = () => {
 					)}
 					{user?.role === "admin" ? (
 						<div className="container">
-							{/* <div className="top" style={{ backgroundColor: "#9ab1c8" }}>
-								<div className="footer">
-									<div className="card">
-										<div className="heading">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<g clipPath="url(#clip0_43_618)">
-													<path
-														d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z"
-														fill="#F9F8F8"
-													/>
-												</g>
-												<defs>
-													<clipPath id="clip0_43_618">
-														<rect width="24" height="24" fill="white" />
-													</clipPath>
-												</defs>
-											</svg>
-											Total Refers
-										</div>
-										<div className="content">{teams?.length || 0}</div>
-									</div>
-
-									<div className="card">
-										<div className="heading">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<g clipPath="url(#clip0_43_618)">
-													<path
-														d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z"
-														fill="#F9F8F8"
-													/>
-												</g>
-												<defs>
-													<clipPath id="clip0_43_618">
-														<rect width="24" height="24" fill="white" />
-													</clipPath>
-												</defs>
-											</svg>
-											Total Bonus
-										</div>
-										<div className="content">{user?.totalBonus}</div>
-									</div>
-
-									<div className="card">
-										<div className="heading">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<g clipPath="url(#clip0_43_618)">
-													<path
-														d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z"
-														fill="#F9F8F8"
-													/>
-												</g>
-												<defs>
-													<clipPath id="clip0_43_618">
-														<rect width="24" height="24" fill="white" />
-													</clipPath>
-												</defs>
-											</svg>
-											Balance
-										</div>
-										<div className="content">{user?.balance}</div>
-									</div>
-								</div>
-							</div> */}
 							<div className="below">
 								<h1>Personal Details</h1>
 								<h2>
@@ -153,7 +118,7 @@ const Profile = () => {
 								</div>
 								<div>
 									<h1>Rank:</h1>
-									<h3>{user?.rank}</h3>
+									<h3>{levelMap[level]}</h3>
 								</div>
 							</div>
 							<div className="footer">
