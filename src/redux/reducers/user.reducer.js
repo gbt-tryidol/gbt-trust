@@ -222,9 +222,19 @@ export const updateReducer = createReducer(initialState, (builder) => {
 			// state.message = action.payload.message;
 			state.referralAmount = action.payload.referralAmount;
 		})
-		.addCase("CALCULATE_REFERRAL_FAILURE", (state, action) => {
+		.addCase("CALCULATE_REFERRAL_FAILURE", (state) => {
 			state.loading = false;
-			state.error = action.payload;
+		})
+		.addCase("CALCULATE_LEVEL_REQUEST", (state) => {
+			state.loading = true;
+		})
+		.addCase("CALCULATE_LEVEL_SUCCESS", (state, action) => {
+			state.loading = false;
+			// state.message = action.payload.message;
+			state.level = action.payload.level;
+		})
+		.addCase("CALCULATE_LEVEL_FAILURE", (state) => {
+			state.loading = false;
 		})
 		.addCase("VERIFY_USER_REQUEST", (state) => {
 			state.loading = true;
