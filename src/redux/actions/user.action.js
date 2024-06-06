@@ -236,6 +236,41 @@ export const addReferral = (code, userid) => async (dispatch) => {
 	}
 };
 
+export const calculateLevel = (id) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "CALCULATE_LEVEL_REQUEST",
+		});
+
+		const token = Cookies.get("token"); // Get the token from the cookie
+		// eslint-disable-next-line no-unused-vars
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+			},
+		};
+		// alert("hiibye");
+
+		const { data } = await axios.get(`${URI}/calculate/level?userid=${id}`, config);
+		console.log(data);
+		const payload = {
+			message: data.message,
+			level: data.data,
+		};
+
+		dispatch({
+			type: "CALCULATE_LEVEL_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "CALCULATE_LEVEL_FAILURE",
+			payload: error.response.data.message,
+		});
+	}
+};
+
 export const calculateReferral = (id) => async (dispatch) => {
 	try {
 		dispatch({
@@ -323,7 +358,7 @@ export const userSignup = (formdata) => async (dispatch) => {
 			payload,
 		});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		dispatch({
 			type: "GET_SIGNUP_FAILURE",
 			payload: error.response.data.message,
