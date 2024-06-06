@@ -10,6 +10,7 @@ import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../redux/actions/index";
 import { TextLoader } from "../components";
+import { toast } from "react-toastify";
 function SignUp() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -20,8 +21,9 @@ function SignUp() {
 	const [aadharFileName, setAadharFileName] = useState("");
 	const [panFileName, setPanFileName] = useState("");
 	const [avatarFileName, setAvatarFileName] = useState("");
+	const { error, message, isAuthenticated, loading } = useSelector((state) => state.user);
 
-	const { loading } = useSelector((state) => state.user);
+	// const {  loading } = useSelector((state) => state.user);
 
 	const [signupDetails, setSignupDetails] = useState({
 		firstName: "",
@@ -127,8 +129,6 @@ function SignUp() {
 		console.log("error code " + error.code + ": " + error.message);
 	};
 
-	const { error, message, isAuthenticated } = useSelector((state) => state.user);
-
 	const signupFormSubmitHandler = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -176,6 +176,7 @@ function SignUp() {
 			dispatch({ type: "CLEAR_MESSAGES" });
 		}
 		if (error) {
+			toast.error(error);
 			dispatch({ type: "CLEAR_ERRORS" });
 		}
 	}, [message, error]);
