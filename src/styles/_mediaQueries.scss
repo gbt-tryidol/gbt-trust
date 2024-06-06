@@ -100,7 +100,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -128,7 +128,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -329,7 +329,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -356,7 +356,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -510,7 +510,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -537,7 +537,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -666,7 +666,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -693,7 +693,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -863,7 +863,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -890,7 +890,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -956,7 +956,7 @@
 		}
 	}
 	.tree__content {
-		transform: translateX(-100px); 
+		transform: translateX(-100px);
 	}
 }
 
@@ -1140,8 +1140,8 @@
 						}
 					}
 				}
-				
-				> .right-container{
+
+				> .right-container {
 					display: none;
 				}
 			}
@@ -1164,7 +1164,7 @@
 						font-size: 1rem;
 					}
 				}
-				> .right-container{
+				> .right-container {
 					display: none;
 				}
 			}
@@ -1217,7 +1217,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -1244,8 +1244,9 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								width: 105%;
 								right: 4rem;
+								transform: translateY(0.125rem) translateX(-50%);
 							}
 						}
 					}
@@ -1365,8 +1366,8 @@
 	.tree__content {
 		width: 100vw;
 		transform: translatex(0);
-		.rd3t-g{
-			transform: translateX(250px)translateY(100px);
+		.rd3t-g {
+			transform: translateX(250px) translateY(100px);
 		}
 	}
 }
@@ -1667,7 +1668,7 @@
 			}
 
 			.invitePeople {
-				height: auto;
+				// height: auto;
 				@include flex(column, center, center, 1rem);
 
 				> div:nth-child(3) {
@@ -1694,7 +1695,7 @@
 					.timeline {
 						.event-items {
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 4rem;
 							}
 						}
@@ -2273,18 +2274,18 @@
 
 			.trackConversion {
 				width: 100%;
-				.left{
+				.left {
 					width: 100%;
-					div:nth-child(2){
+					div:nth-child(2) {
 						flex-direction: column;
 					}
-					.timeline{
+					.timeline {
 						width: 100%;
 						.event-items {
 							width: 9rem;
-		
+
 							&:not(:first-child):before {
-								width: 120%;
+								// width: 120%;
 								right: 3rem;
 							}
 						}
@@ -2292,8 +2293,6 @@
 				}
 			}
 		}
-
-
 	}
 
 	.statements {
@@ -2366,19 +2365,18 @@
 		}
 	}
 
-	.request{
+	.request {
 		> .request-table {
-			.search{
+			.search {
 				display: none;
 			}
 		}
 	}
 
-
 	.tree__content {
 		width: 100vw;
-		.rd3t-g{
-			transform: translateX(150px)translateY(100px);
+		.rd3t-g {
+			transform: translateX(150px) translateY(100px);
 		}
 	}
 }
