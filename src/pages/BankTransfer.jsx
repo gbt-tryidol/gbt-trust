@@ -187,6 +187,7 @@ function BankTransfer() {
 					<TableContainer>
 						<TableHeading>
 							<p>Transaction Details</p>
+
 							<Select
 								defaultValue={monthOptions[0]}
 								options={monthOptions}
