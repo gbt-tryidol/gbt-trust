@@ -67,3 +67,34 @@ export const transferRequest = (payoutPayload) => async (dispatch) => {
 		});
 	}
 };
+
+export const transferAwardRequest = (payoutPayload) => async (dispatch) => {
+	try {
+		dispatch({
+			type: "REQUEST_WITHDRAWAL_REQUEST",
+		});
+
+		const token = Cookies.get("token"); // Get the token from the cookie
+		// eslint-disable-next-line no-unused-vars
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+			},
+		};
+		const { data } = await axios.post(`${URI}/request/award/withdrawal`, payoutPayload, config);
+		const payload = {
+			message: data.message,
+		};
+
+		dispatch({
+			type: "REQUEST_WITHDRAWAL_SUCCESS",
+			payload,
+		});
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: "REQUEST_WITHDRAWAL_FAILURE",
+			payload: error.message,
+		});
+	}
+};
