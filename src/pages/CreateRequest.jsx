@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Bar, AdminSidebar, TextLoader, RequestRow, Table, TableBody, TableContainer, TableHeaders, TableHeading } from "../components";
 import Select, { components } from "react-select";
@@ -300,16 +299,6 @@ const CreateRequest = ({ query, handleSearch }) => {
 						<TableContainer className="request-table">
 							<TableHeading>
 								<p>Request History</p>
-								<div className="search">
-									<BsSearch />
-									<input onClick={handleSearchClick} value={query} onChange={handleSearch} type="text" placeholder="Search..." />
-								</div>
-								<Select
-									options={analyticsFilterOptions}
-									styles={customStyles}
-									components={{ DropdownIndicator }}
-									placeholder="Filter"
-								/>
 							</TableHeading>
 							<Table>
 								<TableHeaders

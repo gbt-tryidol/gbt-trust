@@ -1,6 +1,5 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-
-
 
 export const TableContainer = ({ className = "tableContainers", children }) => {
 	return <section className={`tableContainers ${className}`}>{children}</section>;
@@ -145,9 +144,9 @@ export const DashboardRow = ({ rowdata, className = "tableContents" }) => {
 };
 
 // !! levelsrow
-export const LevelRow = ({ rowdata, className = "tableContents" }) => {
+export const LevelRow = ({ rowdata, onClick, className = "tableContents" }) => {
 	return (
-		<Link to={`/trip/${rowdata._id}`} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
+		<div onClick={() => onClick(rowdata)} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={data}>{data}</h3>;
 			})}
@@ -161,7 +160,27 @@ export const LevelRow = ({ rowdata, className = "tableContents" }) => {
 					{rowdata.status}
 				</button>
 			)}
-		</Link>
+		</div>
+	);
+};
+
+export const ConstantRow = ({ rowdata, className = "tableContents" }) => {
+	return (
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
+			{rowdata.data.map((data) => {
+				return <h3 key={data}>{data}</h3>;
+			})}
+
+			{rowdata?.status && (
+				<button
+					className={
+						rowdata.status === "Ongoing" ? "tableBtn greenbg" : rowdata.status === "Not Archieve" ? "tableBtn redbg" : "tableBtn yellowbg"
+					}
+				>
+					{rowdata.status}
+				</button>
+			)}
+		</div>
 	);
 };
 
@@ -202,7 +221,7 @@ export const DriverRow = ({ rowdata, className = "tableContents" }) => {
 
 export const OwnerRow = ({ rowdata, className = "tableContents" }) => {
 	return (
-		<Link to={`/profile/owner/${rowdata._id}`} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={rowdata._id}>{data}</h3>;
 			})}
@@ -215,13 +234,13 @@ export const OwnerRow = ({ rowdata, className = "tableContents" }) => {
 					{rowdata.status}
 				</button>
 			)}
-		</Link>
+		</div>
 	);
 };
 
 export const RequestRow = ({ rowdata, className = "tableContents" }) => {
 	return (
-		<Link to={`/profile/owner/${rowdata._id}`} className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length + 1},1fr)` }}>
 			{rowdata.data.map((data) => {
 				return <h3 key={rowdata._id}>{data}</h3>;
 			})}
@@ -234,7 +253,26 @@ export const RequestRow = ({ rowdata, className = "tableContents" }) => {
 					{rowdata.status}
 				</button>
 			)}
-		</Link>
+		</div>
+	);
+};
+
+export const StatementRow = ({ rowdata, className = "tableContents" }) => {
+	return (
+		<div className={className} style={{ gridTemplateColumns: `repeat(${rowdata.data.length},1fr)` }}>
+			{rowdata.data.map((data) => {
+				return <h3 key={rowdata._id}>{data}</h3>;
+			})}
+			{rowdata?.status && (
+				<button
+					className={
+						rowdata.status === "ongoing" ? "tableBtn purplebg" : rowdata.status === "notapproved" ? "tableBtn redbg" : "tableBtn greenbg"
+					}
+				>
+					{rowdata.status}
+				</button>
+			)}
+		</div>
 	);
 };
 //  ?-- Invoice row

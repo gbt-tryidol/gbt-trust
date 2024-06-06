@@ -1,110 +1,82 @@
-
 import { AdminSidebar, Bar } from "../components";
-import Select, { components } from "react-select";
-import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { LineChart } from "../components/Chart";
-import { Table, TableBody, TableContainer, TableHeaders, TableHeading, RequestRow } from "../components/TableHOC";
+import { Table, TableBody, TableContainer, TableHeaders, TableHeading, StatementRow } from "../components/TableHOC";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllStatements } from "../redux/actions/statement.action";
+import Select, { components } from "react-select";
+import { CUSTOME_STYLES } from "../assets/data/constants";
+import { FaSort } from "react-icons/fa";
 
-const customerHeaders = ["Order ID", "Details", "Amount", "Date", "Invoice"];
-
-const accountTypeOptions = [
-	{ value: "sbi", label: "State Bank Of India" },
-	{ value: "cbi", label: "Central Bank of India" },
-	{ value: "icici", label: "ICICI Bank" },
-];
-
-const customerData = [
-	{
-		data: ["ID-00300", "Purchase at XYZ Mart", "₹ 20,000.00", "May 24, 2020"],
-		status: "download",
-		_id: 1,
-	},
-	{
-		data: ["ID-00295", "Withdrawal - ATM ABC123", "₹ 80,000.00", "October 30, 2017"],
-		status: "download",
-		_id: 2,
-	},
-	{
-		data: ["ID-00298", "Stock Purchase - ABC Company", "₹ 12,000.00", "February 9, 2015"],
-		status: "download",
-		_id: 3,
-	},
-	{
-		data: ["ID-00291", "Services Rendered", "₹ 89,900.00", "December 29, 2012"],
-		status: "download",
-		_id: 4,
-	},
-	{
-		data: ["ID-00290", "Purchase at XYZ Mart", "₹ 20,000.00", "May 24, 2020"],
-		status: "download",
-		_id: 1,
-	},
-];
-
-const analyticsFilterOptions = [
-	{ value: "2020", label: "2020" },
-	{ value: "2021", label: "2021" },
-	{ value: "2022", label: "2022" },
-	{ value: "2023", label: "2023" },
-	{ value: "2024", label: "2024" },
-];
-const customStyles = {
-	control: (provided) => ({
-		...provided,
-		cursor: "pointer",
-		backgroundColor: "#fff",
-		transition: "all 0.3s ease-in-out",
-		outline: "none",
-		justifyContent: "flex-end",
-		"&:hover, &:focus": {
-			backgroundColor: "#fff",
-			outline: "none",
-			color: "rgb(2, 158, 157)",
-		},
-	}),
-	singleValue: (provided) => ({
-		...provided,
-		padding: "0.2rem",
-		borderRadius: "10px",
-		fontSize: "1.1rem",
-		opacity: "0.8",
-		backgroundColor: "#fff",
-		transition: "all 0.3s ease-in-out",
-		"&:hover, &:focus": {
-			color: "#ac3e2e",
-		},
-	}),
-	dropdownIndicator: (provided) => ({
-		...provided,
-		color: "#000",
-		fontSize: "2rem",
-		"&:hover, &:focus": {
-			color: "#ac3e2e",
-		},
-	}),
-};
+const customerHeaders = ["S no", "Details", "Amount", "Transaction", "Date"];
 
 const DropdownIndicator = (props) => {
 	return (
 		<components.DropdownIndicator {...props}>
-			<IoIosArrowDown />
+			<FaSort />
 		</components.DropdownIndicator>
 	);
 };
 
-const dummyData = [54, 566, 75, 145, 455, 65, 455, 120, 319, 100, 200, 600];
+function formatDate(date) {
+	// Ensure date is in the correct format
+	if (!(date instanceof Date)) {
+		date = new Date(date);
+	}
+
+	// Array of month names
+	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+	// Get components of the date
+	const year = date.getFullYear();
+	const month = date.getMonth();
+	const day = date.getDate();
+
+	// Format the date
+	const formattedDate = `${day}, ${months[month]}, ${year}`;
+
+	return formattedDate;
+}
 
 const Statements = () => {
-	const [data, setData] = useState([]);
+	const [adminData, setAdminData] = useState([]);
+	const [debitedStatement, setDebitedStatement] = useState([]);
+	const [month, setMonth] = useState("");
+	const [monthOptions, setMonthOptions] = useState([]);
+	const { user } = useSelector((state) => state.user);
+	const { statements } = useSelector((state) => state.statement);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		// const total = dummyData.reduce((acc, curr) => acc + curr, 0);
-		const percentageData = dummyData.map((value) => ((value / 6) * 1).toFixed(2));
-		setData(percentageData);
-	}, []);
+		if (statements && statements?.length > 0) {
+			const filteredData = statements.filter((st) => st.type === "debited");
+			const creditData = statements.map((st, idx) => {
+				return {
+					data: [statements.length - idx, st.details, st.amount, st.type, formatDate(st.createdAt)],
+					_id: st._id,
+				};
+			});
+			const debitedData = filteredData.map((st, idx) => {
+				return {
+					data: [filteredData.length - idx, st.details, st.amount, "credited", formatDate(st.createdAt)],
+					_id: st._id,
+				};
+			});
+			const dateSet = new Set(creditData.map((transfer) => formatDate(new Date(transfer.data[4]).toLocaleDateString())));
 
-	const [isAdmin, setIsAdmin] = useState("admin");
+			const uniqueDateArray = Array.from(dateSet).map((date) => ({
+				label: date,
+				value: date,
+			}));
+			setMonthOptions(uniqueDateArray);
+			setDebitedStatement(debitedData);
+			setAdminData(creditData);
+		}
+	}, [statements]);
+
+	useEffect(() => {
+		dispatch(getAllStatements());
+	}, []);
 
 	return (
 		<div className="admin-container">
@@ -112,85 +84,16 @@ const Statements = () => {
 			<main className="dashboard">
 				<Bar heading="Statements" />
 				<section className="statements">
-					{isAdmin === "admin" ? (
-						/*<div className="statement-chart">
-							<div className="heading">
-								<h2>Worth Analysis</h2>
-								<Select
-									options={analyticsFilterOptions}
-									styles={customStyles}
-									components={{ DropdownIndicator }}
-									placeholder="Filter"
-								/>
-							</div>
-							<div className="chart">
-								<LineChart
-									backgroundColor="transparent"
-									borderColor="#003D79"
-									data={data}
-									labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
-								/>
-							</div>
-							<div className="points">
-								<div className="info">
-									<div className="circ"></div>
-									<span>Analysis</span>
-								</div>
-								<h1>
-									₹ <span>Transactions:</span> 213929.00
-								</h1>
-							</div>
-					</div>*/
-					null
-					) : (
-						<>
-							<section className="generate-statement-container">
-								<div className="generate-statement">
-									<h1 className="heading">Generate Statement</h1>
-									<form>
-										<div style={{ width: "80%" }}>
-											<Select
-												styles={customStyles}
-												components={{ DropdownIndicator }}
-												options={accountTypeOptions}
-												placeholder="Select Bank"
-											/>
-										</div>
-
-										<div>
-											<label htmlFor="Member ID"></label>
-											<input type="text" id="memberid" placeholder="Details" />
-										</div>
-										<div>
-											<label htmlFor="How many Pin"></label>
-											<input type="text" id="pin" placeholder="Amount" />
-										</div>
-									</form>
-									<div className="buttons">
-										<button className="btn btn-primary">Generate Pin</button>
-										<button style={{ backgroundColor: "#003D79", marginLeft: "1rem" }} className="btn btn-primary">
-											Add New
-										</button>
-									</div>
-								</div>
-
-								{/* <div className="total-transaction">
-									<h1>Total Transaction</h1>
-									<LineChart
-										backgroundColor="transparent"
-										borderColor="#003D79"
-										data={[12, 23, 23, 564, 342, 243, 3, 556, 34, 76, 32, 345]}
-										labels={["jan", "feb", "mar", "apr", "may", "june", "july", "aug", "sept", "oct", "nov", "dec"]}
-									/>
-								</div> */}
-							</section>
-						</>
-					)}
-
 					<TableContainer className="statement-table">
 						<TableHeading>
 							<p>Statements</p>
-							<Select options={analyticsFilterOptions} styles={customStyles} components={{ DropdownIndicator }} placeholder="Filter" />
+							<Select
+								defaultValue={monthOptions[0]}
+								options={monthOptions}
+								components={{ DropdownIndicator }}
+								styles={CUSTOME_STYLES}
+								onChange={(e) => setMonth(e.value)}
+							/>
 						</TableHeading>
 						<Table>
 							<TableHeaders
@@ -199,7 +102,18 @@ const Statements = () => {
 								}}
 								headers={customerHeaders}
 							/>
-							<TableBody TableRow={RequestRow} data={customerData} />
+							<TableBody
+								TableRow={StatementRow}
+								data={
+									user && user.role === "admin"
+										? month
+											? adminData.filter((i) => i.data[4] === month)
+											: adminData.reverse()
+										: month
+										? debitedStatement.filter((i) => i.data[4] === month)
+										: debitedStatement.reverse()
+								}
+							/>
 						</Table>
 					</TableContainer>
 				</section>

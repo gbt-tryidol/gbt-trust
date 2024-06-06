@@ -29,7 +29,7 @@
 			}
 
 			> .Table {
-				height: 40vh;
+				height: 90vh;
 				overflow-y: scroll;
 				width: 100%;
 				overflow-x: scroll;
@@ -37,6 +37,10 @@
 					display: none;
 				}
 				border: 2px solid $secondaryColor;
+				> .tableContentBody {
+					height: 90vh;
+					max-height: 100vh;
+				}
 			}
 
 			&:nth-child(2) {

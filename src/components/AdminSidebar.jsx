@@ -101,9 +101,9 @@ const DivOne = ({ location }) => {
 				<Li url="/profile" text="Profile" Icon={IoMdPerson} location={location} />
 				<Li url="/team" text="Team" Icon={MdGroup} location={location} />
 				<Li url="/bank/transfer" text="Bank Transfer" Icon={RiBankFill} location={location} />
+				<Li url="/statements" text="Statements" Icon={FaCalendarAlt} location={location} />
 				{user?.role === "user" && <Li url="/refers" text="Refers" Icon={IoMdShare} location={location} />}
 				{user?.role === "user" && <Li url="/request" text="Create a Request" Icon={FaCalendarAlt} location={location} />}
-				<Li url="/statements" text="Statements" Icon={FaCalendarAlt} location={location} />
 				<Li url="/tree" text="My Tree" Icon={ImTree} location={location} />
 				<Li url="/program" text="Our Program" Icon={FaPeopleGroup} location={location} />
 				{user?.role === "admin" && <Li url="/kyc" text="KYC Approvals" Icon={FaPeopleGroup} location={location} />}

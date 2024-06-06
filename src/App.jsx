@@ -5,7 +5,7 @@ import Loader from "./components/Loader";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import SignIn from "./pages/Signin";
 import { useDispatch, useSelector } from "react-redux";
-import { generateReferal, generateReferalLink, getActiveUsers, getAllUsers, loadUser } from "./redux/actions/index";
+import { generateReferalLink, getActiveUsers, getAllUsers, loadUser } from "./redux/actions/index";
 import Cookies from "js-cookie";
 import TransferAccept from "./components/TransferAccept.jsx";
 // ** pages lazy import()
@@ -25,6 +25,7 @@ const Kyc = lazy(() => import("./pages/Kyc"));
 const Statements = lazy(() => import("./pages/Statements"));
 const Payment = lazy(() => import("./pages/Payment"));
 const ProtectedRoute = lazy(() => import("./ProtectedRoutes/ProtectedRoute.jsx"));
+const Bonus = lazy(() => import("./pages/Bonus.jsx"));
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const App = () => {
 					<Route path="/team" element={<Team />} />
 					<Route path="/program" element={<OurProgram />} />
 					<Route path="/request" element={<CreateRequest />} />
+					<Route path="/request/bonus" element={<Bonus />} />
 					<Route path="/refers" element={<Refers />} />
 					<Route path="/tree" element={<TreeComponent />} />
 					<Route path="/epin" element={<Epin />} />
